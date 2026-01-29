@@ -1,68 +1,158 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Aegis Theme",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6c757d",
+    "light": "#8d959d",
+    "dark": "#495057"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "installation",
+              "requirements"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Core Concepts",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "core/block-themes",
+              "core/site-editor",
+              "core/global-styles",
+              "core/theme-json"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Design System",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "design/colors",
+              "design/typography",
+              "design/spacing",
+              "design/shadows",
+              "design/gradients",
+              "design/layout"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Features",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Templates",
             "pages": [
-              "api-reference/introduction"
+              "templates/overview",
+              "templates/page-templates",
+              "templates/archive-templates",
+              "templates/custom-templates"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Patterns",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "patterns/overview",
+              "patterns/headers",
+              "patterns/footers",
+              "patterns/heroes",
+              "patterns/features",
+              "patterns/testimonials",
+              "patterns/cta",
+              "patterns/faq",
+              "patterns/blog",
+              "patterns/contact",
+              "patterns/pricing",
+              "patterns/team",
+              "patterns/portfolio"
+            ]
+          },
+          {
+            "group": "Blocks",
+            "pages": [
+              "blocks/overview",
+              "blocks/enhanced-core-blocks",
+              "blocks/custom-blocks",
+              "blocks/block-variations"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/woocommerce",
+              "integrations/learndash",
+              "integrations/lifterlms",
+              "integrations/acf",
+              "integrations/rankmath"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Development",
+        "groups": [
+          {
+            "group": "Setup",
+            "pages": [
+              "development/local-environment",
+              "development/commands",
+              "development/testing"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "development/child-themes",
+              "development/extending-blocks",
+              "development/custom-patterns",
+              "development/hooks-filters"
+            ]
+          },
+          {
+            "group": "Contributing",
+            "pages": [
+              "development/contributing",
+              "development/code-standards",
+              "development/pattern-guidelines"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "Theme.json",
+            "pages": [
+              "reference/theme-json-settings",
+              "reference/theme-json-styles",
+              "reference/custom-properties"
+            ]
+          },
+          {
+            "group": "CSS Variables",
+            "pages": [
+              "reference/color-tokens",
+              "reference/typography-tokens",
+              "reference/spacing-tokens",
+              "reference/shadow-tokens"
+            ]
+          },
+          {
+            "group": "Framework",
+            "pages": [
+              "reference/framework-overview",
+              "reference/service-providers",
+              "reference/block-settings",
+              "reference/inline-assets"
             ]
           }
         ]
@@ -71,14 +161,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "GitHub",
+          "href": "https://github.com/aegiswp/theme",
+          "icon": "github"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Releases",
+          "href": "https://github.com/aegiswp/theme/releases",
+          "icon": "rocket"
         }
       ]
     }
@@ -90,33 +180,33 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Community",
+        "href": "https://www.facebook.com/groups/aegiswp"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Download",
+      "href": "https://github.com/aegiswp/theme/releases"
     }
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/aegiswp",
+      "github": "https://github.com/aegiswp",
+      "facebook": "https://www.facebook.com/groups/aegiswp"
     }
   }
 }
