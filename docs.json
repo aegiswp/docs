@@ -51,6 +51,8 @@
             "group": "Templates",
             "pages": [
               "templates/overview",
+              "templates/templates",
+              "templates/template-parts",
               "templates/page-templates",
               "templates/archive-templates",
               "templates/custom-templates"
@@ -71,7 +73,9 @@
               "patterns/contact",
               "patterns/pricing",
               "patterns/team",
-              "patterns/portfolio"
+              "patterns/portfolio",
+              "patterns/categories",
+              "patterns/creating-patterns"
             ]
           },
           {
@@ -80,7 +84,24 @@
               "blocks/overview",
               "blocks/enhanced-core-blocks",
               "blocks/custom-blocks",
-              "blocks/block-variations"
+              "blocks/block-variations",
+              "blocks/block-supports"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/admin-panel",
+              "features/hook-patterns",
+              "features/conditional-logic",
+              "features/global-styles",
+              "features/navigation",
+              "features/search",
+              "features/svg-icons",
+              "features/dark-mode",
+              "features/responsive",
+              "features/performance",
+              "features/accessibility"
             ]
           },
           {
@@ -91,7 +112,17 @@
               "integrations/learndash",
               "integrations/lifterlms",
               "integrations/acf",
-              "integrations/rankmath"
+              "integrations/rankmath",
+              "integrations/lms",
+              "integrations/seo",
+              "integrations/other"
+            ]
+          },
+          {
+            "group": "Plugins",
+            "pages": [
+              "plugins/aegis-docs",
+              "plugins/aegis-pro"
             ]
           }
         ]
@@ -114,6 +145,13 @@
               "development/extending-blocks",
               "development/custom-patterns",
               "development/hooks-filters"
+            ]
+          },
+          {
+            "group": "Architecture",
+            "pages": [
+              "development/architecture",
+              "development/rest-api"
             ]
           },
           {

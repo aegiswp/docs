@@ -101,9 +101,29 @@ You can export all your Site Editor customizations as a theme:
 Use the export feature to migrate your customizations from a development site to production, or to create a custom child theme.
 </Tip>
 
+## Style Variations
+
+Aegis includes a "Light" style variation as the default. Additional style variations can be added by creating JSON files in the `styles/` directory.
+
+## Resetting Customizations
+
+### Reset a Single Template
+
+1. Open the template in the Site Editor.
+2. Click the **Options** menu (⋮).
+3. Click **Reset** to revert to the theme's original.
+
+### Reset Global Styles
+
+1. Open **Styles**.
+2. Click the **Options** menu (⋮).
+3. Click **Reset to defaults** to revert all style changes.
+
 ## Best Practices
 
 - **Use Global Styles** for site-wide consistency
 - **Create reusable patterns** for repeated layouts
 - **Edit template parts** for headers/footers instead of individual templates
 - **Test on multiple devices** using the viewport controls
+- **Preview before publishing** — Use the Site Editor's preview mode to check changes across different screen sizes
+- **Global over local** — Set styles globally first, then override per-block only when needed

@@ -23,6 +23,23 @@ Aegis employs a fluid spacing system that scales intelligently across viewport s
 Spacing values reference font size presets, creating a unified scale where spacing and typography grow proportionally.
 </Note>
 
+## Layout Dimensions
+
+| Property | Value |
+|----------|-------|
+| Content Width | `min(calc(100dvw - var(--wp--preset--spacing--lg) * 2), 720px)` |
+| Wide Width | `min(calc(100dvw - var(--wp--preset--spacing--lg) * 2), 1620px)` |
+
+The content width maxes out at **720px** and the wide width at **1620px**, with responsive padding using the `lg` spacing token (48px) on each side.
+
+## Root Padding
+
+Aegis uses root padding-aware alignments (`useRootPaddingAwareAlignments: true`), which means:
+
+- The `<body>` element receives horizontal padding of `var(--wp--preset--spacing--lg)` (48px).
+- Full-width aligned blocks automatically break out of this padding.
+- Content-width and wide-width blocks respect the padding.
+
 ## Default Block Gap
 
 The default block gap (space between blocks) is set to **24px** (`spacing-sm`):
@@ -113,3 +130,19 @@ Because spacing presets use the fluid typography scale, they automatically adjus
 <Tip>
 Use larger spacing presets (L, XL, XXL) for section padding and smaller presets (XS, S, M) for component-level spacing.
 </Tip>
+
+## Usage in Patterns
+
+Always use spacing presets in patterns for consistency:
+
+```html
+<!-- Correct: uses spacing preset -->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|lg"}}}} -->
+
+<!-- Incorrect: hardcoded value -->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"48px"}}}} -->
+```
+
+## Customization
+
+Spacing can be adjusted globally via **Appearance → Editor → Styles → Layout**, or overridden in a child theme's `theme.json` under `settings.spacing.spacingSizes`.

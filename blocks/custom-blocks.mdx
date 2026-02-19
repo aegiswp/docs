@@ -1,17 +1,18 @@
 ---
 title: "Custom Blocks"
-description: "Custom blocks built specifically for Aegis"
+description: "Custom blocks built with the WordPress Interactivity API"
 ---
 
 ## Overview
 
-Aegis includes 3 custom blocks that provide functionality not available in WordPress core:
+Aegis includes custom blocks built with the WordPress Interactivity API for reactive, JavaScript-powered UI components. These blocks require a build step and are registered via `block.json` metadata.
 
 | Block | Name | Description |
 |-------|------|-------------|
 | Modal | `aegis/modal` | Accessible modal dialogs |
 | Slider | `aegis/slider` | Responsive carousels |
 | Slide | `aegis/slide` | Individual slides within sliders |
+| Map | `aegis/map` | Interactive Google Maps |
 
 ## Modal Block
 
@@ -55,90 +56,94 @@ The Modal block is built with accessibility in mind:
 
 ## Slider Block
 
-A responsive slider/carousel for showcasing content.
+A responsive slider/carousel powered by Splide.js with extensive configuration options.
 
 ### Features
 
 - Multiple slide types (content, image, video)
-- Various transition effects
-- Navigation arrows and dots
-- Auto-play with pause on hover
-- Touch/swipe support
+- Configurable slides per page and per move
+- Autoplay with pause on hover
+- Loop and drag support
+- Arrow and dot navigation
+- Customizable speed and interval
+- RTL direction support
+- Custom height settings
 - Responsive breakpoints
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `type` | string | `slide` | Slider type |
+| `perPage` | number | `1` | Slides visible at once |
+| `perMove` | number | `1` | Slides to move per interaction |
+| `autoplay` | boolean | `false` | Auto-advance slides |
+| `pauseOnHover` | boolean | `true` | Pause autoplay on hover |
+| `loop` | boolean | `false` | Infinite loop |
+| `drag` | boolean | `true` | Enable drag/swipe |
+| `showArrows` | boolean | `true` | Show navigation arrows |
+| `showDots` | boolean | `true` | Show pagination dots |
+| `speed` | number | `400` | Transition speed (ms) |
+| `interval` | number | `5000` | Autoplay interval (ms) |
+| `direction` | string | `ltr` | Slide direction |
+| `height` | string | — | Custom slider height |
+| `breakpoints` | object | — | Responsive breakpoint config |
 
 ### Usage
 
-```html
-<!-- wp:aegis/slider {"autoplay":true,"speed":5000} -->
-<div class="wp-block-aegis-slider">
-  <!-- wp:aegis/slide -->
-  <!-- Slide 1 content -->
-  <!-- /wp:aegis/slide -->
-  
-  <!-- wp:aegis/slide -->
-  <!-- Slide 2 content -->
-  <!-- /wp:aegis/slide -->
-</div>
-<!-- /wp:aegis/slider -->
-```
-
-### Settings
-
-| Setting | Options | Description |
-|---------|---------|-------------|
-| Autoplay | true/false | Auto-advance slides |
-| Speed | milliseconds | Time between slides |
-| Transition | slide, fade, none | Animation type |
-| Navigation | arrows, dots, both, none | Navigation controls |
-| Loop | true/false | Infinite loop |
-| Slides to show | number | Visible slides |
-
-### Responsive
-
-Configure different settings per breakpoint:
-
-- Desktop: 3 slides visible
-- Tablet: 2 slides visible
-- Mobile: 1 slide visible
+Search for "Slider" in the block inserter. Add Slide blocks inside the Slider, then configure options in the block sidebar.
 
 ## Slide Block
 
-Individual slides within a Slider block.
+An individual slide within a Slider block.
 
 ### Features
 
-- Content slides (any blocks)
-- Image slides
-- Video slides
-- Custom backgrounds
+- Must be a child of `aegis/slider`
+- Supports any block content
+- Color and spacing controls
+- Custom class name support
 
 ### Usage
 
-```html
-<!-- wp:aegis/slide {"type":"content"} -->
-<div class="wp-block-aegis-slide">
-  <!-- wp:heading -->
-  <h2>Slide Title</h2>
-  <!-- /wp:heading -->
-  
-  <!-- wp:paragraph -->
-  <p>Slide content goes here.</p>
-  <!-- /wp:paragraph -->
-</div>
-<!-- /wp:aegis/slide -->
-```
-
-### Slide Types
-
-| Type | Description |
-|------|-------------|
-| Content | Any block content |
-| Image | Full-slide image |
-| Video | Video background |
+Slide blocks are automatically available when editing inside a Slider block. Add content blocks inside each Slide.
 
 <Note>
 The Slide block can only be used inside a Slider block. It won't appear in the inserter outside of a slider context.
 </Note>
+
+## Map Block
+
+An interactive Google Maps block with a performance-optimized facade pattern.
+
+### Features
+
+- Google Maps embed with configurable center, zoom, and map type
+- Multiple marker support with info windows
+- Facade pattern — loads a static image placeholder until user interaction, then initializes the full map
+- Responsive sizing
+- Keyboard accessible
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `lat` | number | `40.7128` | Map center latitude |
+| `lng` | number | `-74.006` | Map center longitude |
+| `zoom` | number | `12` | Zoom level (1–20) |
+| `mapType` | string | `roadmap` | Map type (`roadmap`, `satellite`, `hybrid`, `terrain`) |
+| `markers` | array | `[]` | Array of marker objects with lat, lng, title |
+| `height` | string | `400px` | Map height |
+
+### Usage
+
+Search for "Map" in the block inserter. Set your Google Maps API key in the Aegis admin settings, then configure the map center, zoom, and markers in the block sidebar.
+
+### Pro Extensions
+
+<Tip>
+[Aegis Pro](/plugins/aegis-pro) adds custom markers, clustering, directions, store locator, geolocation, heatmap, drawing tools, data import, Schema.org output, and dynamic markers.
+</Tip>
 
 ## Best Practices
 
@@ -167,3 +172,54 @@ The Slide block can only be used inside a Slider block. It won't appear in the i
 <Tip>
 For testimonials or simple image galleries, consider using patterns with the Query Loop block instead of sliders for better performance and accessibility.
 </Tip>
+
+## Technical Details
+
+### Registration
+
+Custom blocks are registered via PHP in the framework's `CoreBlocks` namespace:
+
+```php
+// Slider.php registers both aegis/slider and aegis/slide
+register_block_type( get_template_directory() . '/src/Blocks/slider' );
+register_block_type( get_template_directory() . '/src/Blocks/slide' );
+```
+
+Each block has a `block.json` metadata file in `src/Blocks/{block-name}/`.
+
+### Interactivity API
+
+Custom blocks use the WordPress Interactivity API for reactive behavior:
+
+- **Server-side rendering** — PHP render callbacks generate initial HTML with `data-wp-*` directives.
+- **Client-side hydration** — JavaScript modules hydrate the server-rendered HTML for interactivity.
+- **State management** — Shared state via `wp_interactivity_state()` and `wp_interactivity_config()`.
+
+### Asset Loading
+
+- **Editor scripts** — Loaded only in the block editor
+- **View scripts** — Loaded only on the frontend when the block is present
+- **Styles** — Conditionally loaded per block
+
+### Conditional Registration
+
+Blocks can be conditionally disabled via the Aegis admin settings:
+
+```php
+if ( class_exists( '\Aegis\Admin\ConditionalLogicSettings' ) &&
+    ! \Aegis\Admin\ConditionalLogicSettings::is_block_enabled( 'slider' ) ) {
+    return;
+}
+```
+
+### Duplicate Registration Guard
+
+The framework includes guards to prevent duplicate registration when the Pro plugin's block package also registers the same blocks:
+
+```php
+$registry = WP_Block_Type_Registry::get_instance();
+
+if ( ! $registry->is_registered( 'aegis/slider' ) ) {
+    register_block_type( $slider_path );
+}
+```

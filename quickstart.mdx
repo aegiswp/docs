@@ -1,80 +1,110 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Quick Start"
+description: "Get a professional site up and running with Aegis in under 10 minutes"
 ---
 
-## Get started in three steps
+## 1. Open the Site Editor
 
-Get your documentation site running locally and make your first customization.
+Navigate to **Appearance → Editor** to open the WordPress Site Editor. This is your central hub for designing every aspect of your site — headers, footers, templates, styles, and navigation.
 
-### Step 1: Set up your local environment
+## 2. Set Your Global Styles
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+<Steps>
+  <Step title="Open Styles">
+    In the Site Editor, click the **Styles** icon (half-filled circle) in the top-right toolbar.
+  </Step>
+  <Step title="Customize Colors">
+    Aegis provides Primary, Neutral, and Semantic color palettes.
+  </Step>
+  <Step title="Set Typography">
+    Choose from Lexend (body), Lexend Deca (headings), and JetBrains (code).
+  </Step>
+  <Step title="Adjust Spacing">
+    Aegis uses a fluid spacing scale from XXS (8px) to XXL (96px).
+  </Step>
+</Steps>
 
-### Step 2: Deploy your changes
+## 3. Build Your Header
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+1. Go to **Appearance → Editor → Patterns → Template Parts**.
+2. Edit the **Header** template part.
+3. Add your site logo, navigation menu, and optional search toggle.
+4. For a transparent header overlay, use the absolute positioning block support.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+## 4. Create Pages with Patterns
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+Aegis ships with 130+ patterns across 20+ categories. To build a page:
 
-### Step 3: Go live
+1. Create a new **Page** in the WordPress editor.
+2. Click the **Block Inserter** (+) and switch to the **Patterns** tab.
+3. Browse categories: Hero, Features, CTA, Pricing, Testimonials, FAQ, and more.
+4. Insert full-page patterns or combine individual section patterns.
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+<Tip>
+For full-page pattern designs, select the **No Page Title** template via the editor sidebar to remove the default page title.
+</Tip>
 
-## Next steps
+## 5. Set Up Navigation
 
-Now that you have your docs running, explore these key features:
+1. In the Site Editor, edit your **Header** template part.
+2. Add a **Navigation** block.
+3. Create your menu structure — Aegis supports mega menus via the core submenu block.
+4. For mobile, the navigation automatically converts to a responsive hamburger menu.
+
+## 6. Configure Dark Mode
+
+Aegis includes intelligent dark mode that adapts to user system preferences:
+
+- Dark mode is **enabled by default** and respects `prefers-color-scheme`.
+- To customize or disable, check the Aegis settings in the page editor sidebar.
+- All color tokens automatically adapt between light and dark modes.
+
+## 7. Add Custom Blocks
+
+Aegis includes powerful custom blocks:
+
+- **Modal** — Popup, off-canvas, bottom sheet, and fullscreen dialog modes.
+- **Slider** — Responsive carousel with multiple slide types and transitions.
+- **Toggle** — Collapsible content sections.
+
+Search for these in the block inserter to get started.
+
+## 8. Explore Block Variations
+
+Extend core blocks with specialized functionality:
+
+| Variation | What it does |
+|-----------|-------------|
+| **Icon** | Inline SVG icons via the Image block |
+| **Grid** | CSS Grid layout via the Group block |
+| **Marquee** | Scrolling content ticker via the Group block |
+| **Counter** | Animated number counter via the Paragraph block |
+| **Accordion List** | Collapsible items via the List block |
+| **Curved Text** | Text along an SVG path via the Paragraph block |
+| **Related Posts** | Auto-related posts via the Query block |
+
+## 9. Export Your Design
+
+Once your site is designed:
+
+1. Open the Site Editor → click the **Options** menu (⋮) in the top-right.
+2. Under **Tools**, click **Export**.
+3. WordPress packages your customizations into a `.zip` file.
+4. Upload this `.zip` to any other WordPress site to replicate your design.
+
+## Next Steps
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Design System" icon="palette" href="/design/colors">
+    Deep dive into colors, typography, and spacing tokens.
+  </Card>
+  <Card title="Patterns" icon="grid-2" href="/patterns/overview">
+    Browse all available patterns by category.
+  </Card>
+  <Card title="Features" icon="star" href="/features/admin-panel">
+    Explore SVG icons, mega menus, and responsive controls.
+  </Card>
+  <Card title="Developer Guide" icon="code" href="/development/architecture">
+    Understand the framework architecture.
+  </Card>
 </CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>

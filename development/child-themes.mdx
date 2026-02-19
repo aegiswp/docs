@@ -230,6 +230,36 @@ For small customizations, consider using code snippets instead of a full child t
   Collection of code snippets for Aegis customization.
 </Card>
 
+## Example: Custom Brand Colors
+
+```json
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        { "color": "#1e40af", "name": "Primary 700", "slug": "primary-700" },
+        { "color": "#2563eb", "name": "Primary 500", "slug": "primary-500" },
+        { "color": "#60a5fa", "name": "Primary 300", "slug": "primary-300" },
+        { "color": "#dbeafe", "name": "Primary 100", "slug": "primary-100" },
+        { "color": "#eff6ff", "name": "Primary 25", "slug": "primary-25" }
+      ]
+    }
+  }
+}
+```
+
+This replaces only the specified primary colors — all other tokens remain from the parent theme.
+
+## WP-CLI
+
+Create a child theme quickly with WP-CLI:
+
+```bash
+wp scaffold child-theme aegis-child --parent_theme=aegis
+```
+
 ## Updating
 
 When Aegis is updated:

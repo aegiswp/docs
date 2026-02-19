@@ -22,6 +22,108 @@ add_filter('aegis_theme_updater_config', function($config) {
 });
 ```
 
+## WordPress Hooks Used by Aegis
+
+### `register_block_type_args`
+
+Aegis filters block registration arguments to add additional attributes, extended block supports, and custom render callbacks:
+
+```php
+// Example: Add a custom attribute to all Group blocks
+add_filter( 'register_block_type_args', function( $args, $name ) {
+    if ( $name === 'core/group' ) {
+        $args['attributes']['myCustomAttr'] = [
+            'type'    => 'boolean',
+            'default' => false,
+        ];
+    }
+    return $args;
+}, 20, 2 );
+```
+
+### `render_block_{name}`
+
+Aegis modifies block HTML output for enhanced blocks:
+
+```php
+// Example: Add a wrapper to all Image blocks
+add_filter( 'render_block_core/image', function( $html, $block ) {
+    return '<div class="my-image-wrapper">' . $html . '</div>';
+}, 20, 2 );
+```
+
+## Hook Priority
+
+Aegis generally uses default priority (10) for its hooks. When overriding Aegis behavior in a child theme, use a higher priority:
+
+```php
+// Priority 20 runs after Aegis's default priority 10
+add_filter( 'render_block_core/image', 'my_override', 20, 2 );
+```
+
+## Annotation-Based Hooks
+
+The Aegis framework uses a custom `@hook` annotation system:
+
+```php
+class MyClass {
+    /**
+     * @hook init
+     */
+    public function my_init_function(): void {
+        // Runs on WordPress 'init' hook
+    }
+
+    /**
+     * @hook render_block_core/paragraph 20
+     */
+    public function modify_paragraph( string $html, array $block ): string {
+        // Runs on render_block_core/paragraph with priority 20
+        return $html;
+    }
+}
+```
+
+The `Hook::annotations()` method parses these annotations and calls `add_action()` or `add_filter()` automatically.
+
+## Hook Pattern Hooks
+
+Aegis fires action hooks at template part boundaries and content areas. [Hook Patterns](/features/hook-patterns) attach block content to these hooks.
+
+### Template Part Hooks
+
+```php
+// Fired before and after each template part
+do_action( "aegis_before_{$slug}" );
+// ... template part content ...
+do_action( "aegis_after_{$slug}" );
+```
+
+Common slugs: `header`, `footer`, `sidebar`.
+
+### Content Hooks
+
+```php
+do_action( 'aegis_before_content' );
+// ... main content ...
+do_action( 'aegis_after_content' );
+```
+
+### `aegis_available_hook_patterns`
+
+Filter the list of available hook locations:
+
+```php
+add_filter( 'aegis_available_hook_patterns', function( array $hooks ): array {
+    $hooks['my_custom_hook'] = 'My Custom Location';
+    return $hooks;
+});
+```
+
+## Conditional Logic Filter
+
+Aegis registers a `render_block` filter at priority 9 on `core/post-content` blocks to evaluate page/post-level conditional logic. To run custom logic before or after Aegis condition evaluation, use priority 8 (before) or 10+ (after).
+
 ## Block Filters
 
 ### render_block
@@ -31,17 +133,6 @@ Modify any block's output:
 ```php
 add_filter('render_block', function($content, $block) {
     // Modify block content
-    return $content;
-}, 10, 2);
-```
-
-### render_block_{block_name}
-
-Target specific blocks:
-
-```php
-add_filter('render_block_core/image', function($content, $block) {
-    // Only affects image blocks
     return $content;
 }, 10, 2);
 ```
@@ -187,7 +278,41 @@ add_filter('wp_theme_json_data_theme', function($theme_json) {
 });
 ```
 
-## Common Customizations
+## Common Extension Points
+
+### Adding Block Styles
+
+```php
+add_action( 'init', function() {
+    register_block_style( 'core/group', [
+        'name'  => 'my-custom-style',
+        'label' => __( 'My Custom Style', 'my-child-theme' ),
+    ]);
+});
+```
+
+### Modifying Block Output
+
+```php
+add_filter( 'render_block_core/heading', function( $html, $block ) {
+    // Add an anchor link to all headings
+    return preg_replace(
+        '/<h([1-6])/',
+        '<h$1 class="has-anchor"',
+        $html
+    );
+}, 20, 2 );
+```
+
+### Conditional Feature Loading
+
+```php
+add_action( 'wp_enqueue_scripts', function() {
+    if ( has_block( 'aegis/slider' ) ) {
+        wp_enqueue_style( 'my-slider-overrides', ... );
+    }
+});
+```
 
 ### Add Body Classes
 

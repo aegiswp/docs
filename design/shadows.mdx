@@ -129,3 +129,13 @@ Some Aegis components use shadows by default:
 <Tip>
 Use smaller shadows (XXS, XS, SM) for subtle depth on cards and inputs. Use larger shadows (LG, XL, XXL) for modals, dropdowns, and elevated elements.
 </Tip>
+
+## Usage in Patterns
+
+```html
+<!-- wp:group {"shadow":"var:preset|shadow|lg"} -->
+```
+
+## Customization
+
+Shadow presets can be overridden in a child theme's `theme.json` under `settings.shadow.presets`. The shadow color can be changed globally by overriding the custom shadow color variable.

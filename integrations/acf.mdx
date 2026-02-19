@@ -9,10 +9,27 @@ Aegis provides Advanced Custom Fields (ACF) integration including JSON save/load
 
 ## Features
 
-- ACF JSON save/load paths
+- ACF JSON save/load paths for version control
 - Theme color palette in ACF fields
 - Block Bindings source for Query Loop
 - Consistent field styling
+- ACF block support with Aegis design tokens
+
+### ACF Block Support
+
+Aegis ensures ACF-registered blocks work seamlessly within the theme's design system:
+
+- ACF blocks inherit Aegis design tokens (colors, spacing, typography)
+- Block styles are consistent with core and custom blocks
+- Editor preview matches frontend rendering
+
+### Field Group Compatibility
+
+ACF field groups work with all Aegis templates and template parts:
+
+- Fields display correctly in the block editor sidebar
+- Custom field data is accessible in patterns and templates
+- Conditional logic works with Aegis block variations
 
 ## ACF JSON
 
@@ -99,26 +116,38 @@ ACF fields inherit Aegis form styling:
 }
 ```
 
+## Usage
+
+### In Templates
+
+Access ACF fields in block templates using ACF's block bindings or shortcodes:
+
+```html
+<!-- Using ACF block -->
+<!-- wp:acf/my-custom-block /-->
+```
+
+### In Patterns
+
+ACF fields can be referenced in patterns using PHP:
+
+```php
+<?php if ( function_exists( 'get_field' ) ) : ?>
+  <p><?php echo esc_html( get_field( 'custom_field' ) ); ?></p>
+<?php endif; ?>
+```
+
 ## Best Practices
 
 <Tip>
 Store ACF field groups in the `acf-json/` directory for version control and easier deployment.
 </Tip>
 
-### Organization
-
 - Use consistent field naming conventions
 - Group related fields logically
-- Document field purposes
+- Test block bindings in Query Loop context
+- Provide fallback content for bound fields
 
-### Performance
+## Framework Implementation
 
-- Use field caching
-- Avoid excessive field queries
-- Consider local JSON for production
-
-### Block Bindings
-
-- Test bindings in Query Loop context
-- Provide fallback content
-- Use appropriate field types for bindings
+The ACF integration is handled by `Integrations\AdvancedCustomFields` in the Aegis framework.

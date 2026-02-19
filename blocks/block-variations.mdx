@@ -259,20 +259,59 @@ Inline SVG rendering with sanitization and styling support.
 SVG files are sanitized on upload to prevent security issues. Some complex SVGs may have features removed.
 </Warning>
 
+## How Variations Work
+
+Block variations are registered via the framework's `BlockVariations` namespace. Each variation:
+
+1. **Extends a core block** — No new block type is registered.
+2. **Adds attributes** — Custom attributes are injected via `register_block_type_args`.
+3. **Modifies rendering** — Output is altered via `render_block` filters.
+4. **Adds editor UI** — Sidebar controls are added via editor scripts.
+
+### Registration Flow
+
+```
+BlockVariations\{Name}
+  → Hook::annotations() reads @hook annotations
+  → Registers on 'init' or 'enqueue_block_editor_assets'
+  → Adds variation via JavaScript registerBlockVariation()
+  → Modifies render output via PHP render_block filter
+```
+
 ## Creating Custom Variations
 
 In a child theme or plugin, register custom variations:
 
 ```php
-// Register a block variation
-add_action('init', function() {
-    wp_register_block_style('core/group', [
-        'name' => 'my-variation',
+add_action( 'init', function() {
+    wp_register_block_style( 'core/group', [
+        'name'  => 'my-variation',
         'label' => 'My Variation',
-    ]);
-});
+    ] );
+} );
+```
+
+Or via JavaScript:
+
+```javascript
+wp.blocks.registerBlockVariation( 'core/group', {
+    name: 'my-custom-variation',
+    title: 'My Custom Variation',
+    attributes: {
+        className: 'is-style-my-variation',
+    },
+    scope: [ 'inserter', 'block', 'transform' ],
+} );
 ```
 
 <Tip>
 Block variations are a powerful way to create reusable, pre-configured block setups without building custom blocks from scratch.
 </Tip>
+
+## Customization
+
+Block variations inherit the styling of their base block. You can customize them via:
+
+- **Site Editor** — Style the base block type globally
+- **Block Sidebar** — Adjust per-instance settings
+- **CSS** — Target variation-specific classes

@@ -87,6 +87,28 @@ Special-purpose colors for specific use cases.
 | Current | `current` | `currentcolor` | `--wp--preset--color--current` |
 | Inherit | `inherit` | `inherit` | `--wp--preset--color--inherit` |
 
+## Default Styles
+
+Aegis applies the following color defaults globally:
+
+- **Background**: `neutral-0` (`#f8f9fa`)
+- **Body text**: `neutral-600` (`#50555b`)
+- **Headings**: `neutral-800` (`#313539`)
+- **Links**: `inherit` (hover/focus: `primary-500`)
+- **Buttons**: text `primary-25`, background `primary-500`
+
+## Usage in Patterns
+
+When creating patterns, always use preset slugs rather than hardcoded hex values:
+
+```html
+<!-- Correct: uses preset slug -->
+<!-- wp:paragraph {"textColor":"primary-500"} -->
+
+<!-- Incorrect: hardcoded color -->
+<!-- wp:paragraph {"style":{"color":{"text":"#6c757d"}}} -->
+```
+
 ## Usage in Blocks
 
 Select colors in the block editor:
@@ -107,6 +129,10 @@ Reference colors using CSS custom properties:
   border-color: var(--wp--preset--color--neutral-200);
 }
 ```
+
+## Customization
+
+Colors can be customized globally via **Appearance → Editor → Styles → Colors**, or per-block in the block sidebar. Child themes can override the palette by defining their own `color.palette` in `theme.json`.
 
 ## Accessibility
 

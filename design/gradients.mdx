@@ -142,6 +142,26 @@ The grid gradient supports custom properties for size and color:
 }
 ```
 
+## Rich Text Gradient Formats
+
+Aegis extends the block editor with gradient text formatting, allowing you to apply gradient fills to text content directly from the toolbar. This works with headings, paragraphs, and other text blocks.
+
+## Usage in Patterns
+
+```html
+<!-- Background gradient -->
+<!-- wp:group {"gradient":"primary-700-500"} -->
+
+<!-- Overlay gradient on cover block -->
+<!-- wp:cover {"gradient":"primary-transparent"} -->
+```
+
+## Customization
+
+Gradients can be customized via **Appearance → Editor → Styles → Colors → Gradients**, or overridden in a child theme's `theme.json` under `settings.color.gradients`.
+
+Custom gradients are also enabled (`customGradient: true`), allowing users to create their own gradients in the editor.
+
 <Tip>
 Use the fade gradients (Fade Left, Fade Right, Background/Transparent) for smooth transitions and overlay effects on images and sections.
 </Tip>

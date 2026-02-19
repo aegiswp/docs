@@ -49,15 +49,20 @@ Some features may require the latest WordPress version or the [Gutenberg plugin]
     composer require aegiswp/theme
     ```
   </Tab>
+  <Tab title="WP-CLI">
+    ```bash
+    wp theme install /path/to/aegis.zip --activate
+    ```
+  </Tab>
 </Tabs>
 
-## Post-Installation
+## Verify Installation
 
-After activating Aegis:
+After activation, confirm Aegis is running correctly:
 
-1. Navigate to **Appearance → Editor** to access the Site Editor
-2. Customize your site's global styles, templates, and patterns
-3. Create pages using the pre-built patterns
+1. Visit your site's frontend — you should see the default Aegis layout.
+2. Navigate to **Appearance → Editor** to access the Site Editor.
+3. Check **Appearance → Editor → Patterns** to browse the included patterns.
 
 <Check>
 Aegis is now installed and ready to use. Visit the [Site Editor guide](/core/site-editor) to start customizing your site.
@@ -71,5 +76,28 @@ Aegis includes a built-in theme updater that checks for new releases on GitHub. 
 2. Click **Update Now** to install the latest version
 
 <Warning>
-Always backup your site before updating. If you've made customizations, consider using a [child theme](/development/child-themes) to preserve your changes.
+Always backup your site before updating. If you've made customizations through the Site Editor, your customizations are stored in the database and will persist through updates.
 </Warning>
+
+## Child Theme
+
+For custom code modifications, use the official [Aegis Child Theme](https://github.com/aegiswp/theme-child) rather than editing the parent theme directly. This ensures your customizations survive theme updates.
+
+```bash
+# Clone the child theme
+git clone https://github.com/aegiswp/theme-child.git
+
+# Upload to /wp-content/themes/aegis-child/
+# Activate via Appearance → Themes
+```
+
+See the [Child Themes guide](/development/child-themes) for detailed instructions.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| White screen after activation | Ensure PHP 7.4+ and WordPress 6.6+ are installed |
+| Patterns not appearing | Clear any caching plugins and check **Appearance → Editor → Patterns** |
+| Styles not loading | Verify the theme folder is named `aegis` (not `aegis-main` or similar) |
+| Update not showing | The updater requires the `repo` config in `functions.php` — do not remove it |

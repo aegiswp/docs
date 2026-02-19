@@ -5,9 +5,52 @@ description: "WordPress core blocks extended with additional Aegis functionality
 
 ## Overview
 
-Aegis extends 37 WordPress core blocks with additional styling options, performance optimizations, and enhanced functionality.
+Aegis extends over 30 WordPress core blocks with additional functionality, styling options, and performance optimizations. These enhancements are applied automatically — no configuration required.
 
-## Text Blocks
+## Block Enhancements
+
+| Block | WordPress Block | Enhancements |
+|-------|----------------|-------------|
+| **Button** | `core/button` | Additional appearance controls, hover effects, outline and ghost variants |
+| **Buttons** | `core/buttons` | Extended group layouts, responsive alignment options |
+| **Calendar** | `core/calendar` | Improved styling and DOM manipulation |
+| **Code** | `core/code` | Syntax highlighting support, JetBrains font, themed background |
+| **Columns** | `core/columns` | Responsive controls, reverse-on-mobile |
+| **Cover** | `core/cover` | Advanced overlay and positioning options |
+| **Details** | `core/details` | Styled accordion/disclosure elements |
+| **Group** | `core/group` | Additional layout options, Grid variation |
+| **Heading** | `core/heading` | Gradient and decoration support |
+| **Image** | `core/image` | SVG icon support, advanced image controls |
+| **List** | `core/list` | Custom markers, Accordion List variation |
+| **Navigation** | `core/navigation` | Mega menu support, advanced styles |
+| **Navigation Submenu** | `core/navigation-submenu` | Multi-column dropdown support |
+| **Page List** | `core/page-list` | Improved rendering |
+| **Paragraph** | `core/paragraph` | Extended text formatting, gradient support |
+| **Post Author** | `core/post-author` | Enhanced display options |
+| **Post Comments Form** | `core/post-comments-form` | Styled form with accessibility improvements |
+| **Post Content** | `core/post-content` | Extended rendering |
+| **Post Date** | `core/post-date` | Flexible date formatting |
+| **Post Excerpt** | `core/post-excerpt` | Length controls |
+| **Post Featured Image** | `core/post-featured-image` | Aspect ratios, border radius |
+| **Post Template** | `core/post-template` | Extended query loop options |
+| **Post Terms** | `core/post-terms` | Enhanced taxonomy display |
+| **Post Title** | `core/post-title` | Extended styling options |
+| **Query** | `core/query` | Advanced configurations |
+| **Query Pagination** | `core/query-pagination` | Multiple layout styles |
+| **Query Title** | `core/query-title` | Enhanced rendering |
+| **Search** | `core/search` | CSS-only full-screen toggle |
+| **Shortcode** | `core/shortcode` | Improved rendering |
+| **Social Link** | `core/social-link` | Extended icon options |
+| **Social Links** | `core/social-links` | Enhanced container styling |
+| **Spacer** | `core/spacer` | Responsive breakpoint controls |
+| **Table of Contents** | `core/table-of-contents` | Styled TOC with smooth scrolling |
+| **Tag Cloud** | `core/tag-cloud` | Enhanced styling |
+| **Template Part** | `core/template-part` | Extended rendering |
+| **Video** | `core/video` | Lazy loading, themed background |
+
+## Block Categories
+
+### Text Blocks
 
 ### Paragraph (`core/paragraph`)
 
@@ -246,3 +289,74 @@ Enhanced with:
 <Tip>
 All enhanced blocks maintain full compatibility with WordPress core. Aegis enhancements are additive and don't break existing functionality.
 </Tip>
+
+## Default Block Styles
+
+Aegis applies consistent default styles to core blocks via `theme.json`. Key defaults include:
+
+### Borders & Radius
+
+Most blocks receive the global border radius token:
+
+```css
+border-radius: var(--wp--custom--border--radius); /* 6px */
+```
+
+Applied to: Image, Code, Column, Columns, HTML, List, Video, Audio, and more.
+
+### Code Block
+
+```
+Font: JetBrains Mono (14px, medium weight)
+Background: neutral-100
+Padding: block gap on all sides
+Border: none, with border radius
+```
+
+### Navigation
+
+```
+Font: Lexend (14px, medium weight)
+```
+
+### Buttons
+
+```
+Text: primary-25
+Background: primary-500
+Font: 14px, semi-bold, 20px line height
+Padding: 10px 16px
+Border radius: global token
+```
+
+### Links
+
+```
+Color: inherit
+Decoration: underline
+Hover/Focus: primary-500
+```
+
+### Separators
+
+```
+Color: neutral-200
+Border: currentColor
+```
+
+## How Enhancements Work
+
+Aegis block enhancements are implemented through the framework's `CoreBlocks` and `DesignSystem` namespaces:
+
+- **PHP filters** — `register_block_type_args` modifies block registration to add attributes and supports.
+- **Render filters** — `render_block_{name}` modifies block HTML output.
+- **Editor assets** — Additional controls are injected into the block sidebar via editor scripts.
+- **Conditional CSS** — Stylesheets are loaded only when a block is present on the page.
+
+## Customization
+
+Block styles can be overridden via:
+
+1. **Site Editor** — Appearance → Editor → Styles → Blocks
+2. **theme.json** — Override in `styles.blocks` section of a child theme
+3. **CSS** — Target block classes directly (e.g., `.wp-block-code`)

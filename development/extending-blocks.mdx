@@ -114,7 +114,19 @@ add_filter('render_block_core/paragraph', function($content, $block) {
 
 ## Block Supports
 
-Add features to blocks via `theme.json`:
+Add or modify block supports in a child theme:
+
+```php
+// Add custom supports to a block
+add_filter( 'register_block_type_args', function( $args, $name ) {
+    if ( 'core/paragraph' === $name ) {
+        $args['supports']['typography']['textColumns'] = true;
+    }
+    return $args;
+}, 10, 2 );
+```
+
+Or add features to blocks via `theme.json`:
 
 ```json
 {
@@ -173,6 +185,34 @@ addFilter(
         );
     }
 );
+```
+
+### Registering Custom Attributes
+
+```php
+add_filter( 'register_block_type_args', function( $args, $name ) {
+    if ( 'core/group' === $name ) {
+        $args['attributes']['customFeature'] = [
+            'type'    => 'boolean',
+            'default' => false,
+        ];
+    }
+    return $args;
+}, 10, 2 );
+```
+
+## Enqueuing Editor Assets
+
+```php
+add_action( 'enqueue_block_editor_assets', function() {
+    wp_enqueue_script(
+        'aegis-child-editor',
+        get_stylesheet_directory_uri() . '/assets/js/editor.js',
+        [ 'wp-blocks', 'wp-hooks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-compose' ],
+        filemtime( get_stylesheet_directory() . '/assets/js/editor.js' ),
+        true
+    );
+} );
 ```
 
 ## Block Patterns

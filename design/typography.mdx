@@ -9,22 +9,27 @@ Aegis features a comprehensive fluid typography system that scales intelligently
 
 ## Font Families
 
-Aegis includes two variable fonts:
+Aegis includes three variable fonts:
 
-| Name | Slug | Font Stack | Weight Range |
-|------|------|------------|--------------|
-| Lexend | `lexend` | `Lexend, sans-serif` | 300–900 |
-| JetBrains | `jetbrains` | `JetBrains, monospace` | 100–900 |
+| Name | Slug | Usage | Weight Range | File |
+|------|------|-------|-------------|------|
+| **Lexend** | `lexend` | Body text | 300–900 | `assets/fonts/lexend.woff2` |
+| **Lexend Deca** | `lexend-deca` | Headings | 300–900 | `assets/fonts/lexend-deca.woff2` |
+| **JetBrains** | `jetbrains` | Code blocks | 100–900 | `assets/fonts/jetbrains.woff2` |
+
+All fonts are variable fonts loaded locally (no external requests). They use `font-display: block` (Lexend, Lexend Deca) or `font-display: swap` (JetBrains) for optimal rendering.
 
 <Note>
 Fonts are loaded conditionally based on your selections in the Site Editor. If you don't use a font, it won't be loaded.
 </Note>
 
-### Default Usage
+### CSS Variables
 
-- **Body text**: Lexend
-- **Headings**: Lexend
-- **Code blocks**: JetBrains
+```css
+var(--wp--preset--font-family--lexend)
+var(--wp--preset--font-family--lexend-deca)
+var(--wp--preset--font-family--jetbrains)
+```
 
 ## Font Sizes
 
@@ -72,16 +77,25 @@ Custom font weight tokens are available:
 | Extra Light | `--wp--custom--font-weight--extra-light` | 200 |
 | Thin | `--wp--custom--font-weight--thin` | 100 |
 
-## Default Heading Styles
+## Heading Defaults
 
-| Element | Font Size | Line Height |
-|---------|-----------|-------------|
-| H1 | 44px | 52px |
-| H2 | 36px | 44px |
-| H3 | 32px | 40px |
-| H4 | 28px | 36px |
-| H5 | 24px | 32px |
-| H6 | 20px | 28px |
+| Element | Font Family | Font Size | Line Height | Font Weight |
+|---------|------------|-----------|-------------|-------------|
+| H1 | Lexend Deca | 44px | 52px | Semi Bold (600) |
+| H2 | Lexend Deca | 36px | 44px | Semi Bold (600) |
+| H3 | Lexend Deca | 32px | 40px | Semi Bold (600) |
+| H4 | Lexend Deca | 28px | 36px | Semi Bold (600) |
+| H5 | Lexend Deca | 24px | 32px | Semi Bold (600) |
+| H6 | Lexend Deca | 20px | 28px | Semi Bold (600) |
+
+## Body Defaults
+
+| Property | Value |
+|----------|-------|
+| Font Family | Lexend |
+| Font Size | 16px |
+| Font Weight | Regular (400) |
+| Line Height | 1.6 |
 
 ## Usage in CSS
 
@@ -110,3 +124,20 @@ Aegis enables these typography controls in the block editor:
 <Tip>
 Use the fluid font sizes for responsive typography that scales smoothly across all screen sizes without media queries.
 </Tip>
+
+## Variable Font Library
+
+Aegis includes a curated collection of popular variable Google Fonts beyond the defaults. Fonts are conditionally loaded based on selections made in **Site Editor → Styles**, ensuring only used fonts are loaded.
+
+## Advanced Text Formats
+
+Aegis extends the block editor toolbar with additional text formatting options:
+
+- **Clear Formatting** — Remove all inline styles
+- **Underline** — Text underline decoration
+- **Gradient Text** — Apply gradient fills to text
+- **Dynamic Font Sizes** — Inline font size adjustments
+
+## Customization
+
+Typography can be customized via **Appearance → Editor → Styles → Typography**, or overridden in a child theme's `theme.json` under `settings.typography`.
