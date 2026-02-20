@@ -3,8 +3,8 @@
   "theme": "mint",
   "name": "Aegis Theme",
   "colors": {
-    "primary": "#6c757d",
-    "light": "#8d959d",
+    "primary": "#f8f9fa",
+    "light": "#f8f9fa",
     "dark": "#202427"
   },
   "favicon": "/favicon.svg",
