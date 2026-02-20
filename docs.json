@@ -252,10 +252,15 @@
       "light": "#f8f9fa"
     }
   },
-  "appearance": {
-    "default": "dark"
-  },
   "fonts": {
     "family": "Lexend"
+  },
+  "styling": {
+    "latex": false
+  },
+  "api": {
+    "playground": {
+      "display": "simple"
+    }
   }
 }
