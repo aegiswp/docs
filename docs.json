@@ -248,7 +248,8 @@
   },
   "background": {
     "color": {
-      "dark": "#202427"
+      "dark": "#202427",
+      "light": "#f8f9fa"
     }
   },
   "appearance": {
