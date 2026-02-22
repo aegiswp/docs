@@ -134,6 +134,32 @@ A full-viewport overlay with large, centered typography.
 - **Submenus:** Centered with smaller font size
 - **Close button:** Enlarged (2em SVG)
 
+### Slide-in Left
+
+Same as Slide-in Drawer but slides in from the left instead of the right.
+
+```html
+<!-- wp:navigation {"icon":"menu","className":"is-style-slide-in-left"} /-->
+```
+
+- **Width:** 360px max
+- **Direction:** Slides in from the left edge
+- **Backdrop:** Semi-transparent dark overlay
+- **Menu items:** Same bordered list style as Slide-in Drawer
+
+### Scroll
+
+A horizontally-scrollable desktop navigation bar for sites with many menu items.
+
+```html
+<!-- wp:navigation {"icon":"menu","className":"is-style-scroll"} /-->
+```
+
+- **Overflow:** Horizontal scroll with `-webkit-overflow-scrolling: touch`
+- **Scrollbar:** Styled thin scrollbar (4px) with neutral colors
+- **Items:** `flex-shrink: 0` and `white-space: nowrap` to prevent wrapping
+- **Fade edges:** Gradient mask on left/right edges to indicate scrollability
+
 ### Accessibility
 
 All overlay styles include:

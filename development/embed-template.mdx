@@ -1,0 +1,103 @@
+---
+title: "Embed Template"
+description: "Custom oEmbed template for Aegis theme embeds"
+---
+
+`Dev` `Free`
+
+## Overview
+
+When your WordPress posts are embedded on external sites (via oEmbed), Aegis customizes the embed card to match the theme's design system. This is handled by two components:
+
+- **`Aegis\Framework\DesignSystem\Embed`** — Framework class that hooks into WordPress embed filters
+- **`embed-content.php`** — Custom template in the theme root that replaces WordPress's default embed layout
+
+## Features
+
+- **Custom image size** — Registers `aegis-embed` (640×360, cropped) for consistent embed thumbnails
+- **Rectangular layout** — Forces `rectangular` image shape (above-title) via `embed_thumbnail_image_shape`
+- **Shortened excerpt** — 25 words in embed context (vs. default 55)
+- **Custom CTA** — Changes "Continue reading" to "Read more" via `WP_HTML_Tag_Processor`
+- **Clean site title** — Displays site icon + name without WordPress logo fallback
+- **Publication date** — Appends formatted date for single posts
+- **Primary taxonomy** — Shows first category or tag below the excerpt
+- **No share button** — Removes the share button and dialog for a cleaner card
+- **Schema.org data** — Custom template includes structured data
+
+## Hooks Used
+
+| Hook | Priority | Method | Purpose |
+|------|----------|--------|---------|
+| `after_setup_theme` | 10 | `register_image_size()` | Register `aegis-embed` image size |
+| `enqueue_embed_scripts` | 10 | `enqueue_styles()` | Load embed stylesheet |
+| `embed_thumbnail_image_shape` | 10 | `enforce_image_shape()` | Force rectangular layout |
+| `embed_thumbnail_image_size` | 10 | `enforce_image_size()` | Use custom image size |
+| `excerpt_length` | 10 | `shorten_excerpt()` | 25 words in embed context |
+| `excerpt_more` | 21 | `excerpt_cta()` | "Read more" CTA text |
+| `embed_site_title_html` | 10 | `site_title()` | Custom site title HTML |
+| `embed_content` | 10 | `add_post_date()` | Append publication date |
+| `embed_content` | 10 | `add_post_terms()` | Append primary taxonomy term |
+| `init` | 10 | `remove_share_button()` | Remove share button/dialog |
+
+## Custom Template
+
+The `embed-content.php` file in the theme root provides a fully custom embed layout. When this file exists, the `Embed` class skips its `add_post_date()` and `add_post_terms()` hooks (since the template renders them directly).
+
+### Template Structure
+
+```
+┌─────────────────────────────┐
+│  Featured Image (640×360)   │
+├─────────────────────────────┤
+│  Post Title                 │
+│  Publication Date           │
+│  Excerpt (25 words)         │
+│  Primary Category/Tag       │
+├─────────────────────────────┤
+│  Site Icon + Site Name      │
+└─────────────────────────────┘
+```
+
+### File Location
+
+The template **must** reside in the theme root directory for WordPress to discover it:
+
+```
+themes/aegis/embed-content.php
+```
+
+<Note>
+This is a WordPress requirement — `embed-content.php` is loaded by `get_embed_template()` which only checks the theme root, not subdirectories.
+</Note>
+
+## Stylesheet
+
+The embed CSS is loaded from:
+
+```
+vendor/aegis/framework/public/css/embed-template.css
+```
+
+It is enqueued with `wp-embed-template` as a dependency to ensure proper cascade.
+
+## Customization
+
+### Override in Child Theme
+
+Create `embed-content.php` in your child theme root to fully replace the embed layout.
+
+### Filter the Excerpt Length
+
+```php
+add_filter('excerpt_length', function(int $length): int {
+    return is_embed() ? 15 : $length;
+}, 30);
+```
+
+### Filter the Site Title
+
+```php
+add_filter('embed_site_title_html', function(string $html): string {
+    return '<div class="wp-embed-site-title">My Custom Title</div>';
+}, 20);
+```

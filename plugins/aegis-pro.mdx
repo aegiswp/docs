@@ -5,7 +5,7 @@ description: "Advanced block features and professional-grade functionality"
 
 ## Overview
 
-Aegis Pro extends the Aegis theme with advanced block features, additional controls, and professional-grade functionality.
+Aegis Pro extends the Aegis theme with advanced block features, additional controls, and professional-grade functionality. All features below require the `Pro` tier.
 
 ## Requirements
 
@@ -14,7 +14,33 @@ Aegis Pro extends the Aegis theme with advanced block features, additional contr
 - PHP 8.1+
 - Valid Aegis Pro license
 
+## Feature Map
+
+| Feature Area | Components |
+|-------------|------------|
+| **Enhanced Blocks** | Slider Pro, Modal Pro, Countdown Pro, Toggle Pro, Map Pro |
+| **Video** | Engagement, Advanced, Chapters, Analytics, BunnyCDN, Marketing, Multi-Audio, Privacy, SEO, Dynamic Sources, Interactivity Store |
+| **Query Loop Pro** | AJAX Pagination, Carousel Layout, Masonry Layout, Frontend Filters, Image Source, Block Bindings, Block Conditions, Performance, Interactivity Store |
+| **Global Styles** | Custom CSS class manager with admin UI |
+| **Pattern Control** | Disable third-party plugin patterns and templates |
+| **LMS/CRM** | LearnDash, LifterLMS, FluentCRM video integrations |
+
+---
+
 ## Enhanced Blocks
+
+### Countdown Pro
+
+Extends `aegis/countdown` with:
+
+- **Evergreen timers** — Per-visitor countdowns using cookies, each visitor sees their own timer
+- **Animation styles** — Flip, slide, fade animations on digit changes
+- **Auto-restart** — Automatically restart the countdown after expiry
+- **Expiry actions** — Redirect to URL, hide the block, or replace with custom content
+- **Urgency styling** — Change colors/styles as the deadline approaches
+- **Event schema** — Outputs `Event` schema.org structured data for SEO
+
+**Class:** `Aegis\Pro\Blocks\Countdown`
 
 ### Slider Pro
 
@@ -26,6 +52,8 @@ Extends `aegis/slider` with:
 - Extended responsive breakpoint configuration
 - Pro-specific data attributes for enhanced interactivity
 
+**Class:** `Aegis\Pro\Blocks\Slider`
+
 ### Modal Pro
 
 Extends `aegis/modal` with:
@@ -34,45 +62,164 @@ Extends `aegis/modal` with:
 - Advanced animation options
 - Conditional display rules
 
-### Toggle
+**Class:** `Aegis\Pro\Blocks\Modal`
 
-A new `aegis/toggle` block for:
+### Toggle Pro
 
-- Show/hide content sections
-- FAQ-style expandable content
-- Conditional content display
+Extends `aegis/toggle` with:
+
+- Additional animation styles
+- Conditional display rules
+- Advanced configuration options
+
+**Class:** `Aegis\Pro\Blocks\Toggle`
+
+---
 
 ## Enhanced Video Block
 
-Aegis Pro significantly extends the core Video block (`core/video`) with:
+Aegis Pro significantly extends the core Video block (`core/video`) with 11 feature modules. All settings appear in the block sidebar under dedicated panels.
 
 ### Engagement Features
 
-- **Muted Autoplay** — Auto-captions on muted autoplay, animated play button overlay
-- **Sticky Player** — Video follows user while scrolling, with close and back-to-video controls
-- **Focus Mode** — Pause on tab blur, pause on scroll out, user preference toggle
-- **Saved Progress** — Resume playback, remember volume/speed preferences (REST API or cookies)
+`User` — Block sidebar → Engagement panel
+
+- **Muted Autoplay** — Auto-captions on muted autoplay, animated pulsing play button overlay, unmute indicator
+- **Sticky Player** — Video follows user while scrolling (IntersectionObserver-based), close button, back-to-video scroll, re-enables on next play
+- **Focus Mode** — Pause on tab blur (visibilitychange), pause on scroll out, user preference toggle with localStorage persistence, focus notice overlay
+- **Saved Progress** — Resume playback prompt (Resume/Start Over), remember volume/speed preferences via REST API (logged in) or cookies (anonymous, 30 days)
+
+**Class:** `AegisPro\Video\Engagement`
 
 ### Advanced Features
 
-- **Ambient Light** — Dynamic background glow effect matching video content
-- **Thumbnail Previews** — Sprite-based timeline preview on hover
-- **Touch Gestures** — Swipe volume/brightness/seek, pinch-to-zoom, double-tap seek
-- **Video Playlist** — Default and Netflix-style playlist layouts with progress tracking
+`User` — Block sidebar → Advanced panel
+
+- **Ambient Light** — Dynamic background glow matching video content (canvas-based, throttled 15fps, max 320×180)
+- **Thumbnail Previews** — Sprite-based timeline preview on hover with scrubbing support
+- **Touch Gestures** — Swipe volume/brightness/seek, pinch-to-zoom (1–3×), double-tap seek, gesture mode state machine
+- **Video Playlist** — Default and Netflix-style layouts with progress tracking, now-playing badge, up-next label
+
+**Class:** `AegisPro\Video\AdvancedFeatures`
+
+### Video Chapters
+
+`User` — Block sidebar → Chapters panel
+
+- **Chapter markers** — Define chapters with timestamp and title
+- **Timestamp navigation** — Click to jump to chapter
+- **Position options** — Below video, sidebar, or overlay
+- **Searchable captions** — Full-text search within video captions
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProChapters` | array | `[]` | Array of `{time, title}` objects |
+| `aegisProShowChapters` | boolean | `true` | Show chapter list |
+| `aegisProChaptersPosition` | string | `below` | Position: `below`, `sidebar`, `overlay` |
+| `aegisProSearchableCaptions` | boolean | `false` | Enable caption search |
+
+**Class:** `AegisPro\Video\Chapters`
+
+### Video Analytics
+
+`User` `Dev` — Admin dashboard + Block sidebar
+
+- **Local analytics** — Custom database table tracking play, pause, seek, complete events
+- **Google Analytics integration** — Send video events to GA
+- **Per-user tracking** — Track individual user viewing history (logged-in users via user meta, anonymous via UUID cookie)
+- **Admin dashboard** — Dedicated analytics page under Aegis menu with charts and data tables
+- **REST API** — Endpoints for recording and retrieving analytics data
+
+**Class:** `AegisPro\Video\Analytics`
+
+### BunnyCDN Integration
+
+`User` `Dev` — Block sidebar → BunnyCDN panel
+
+- **Stream API** — Full BunnyCDN Stream integration for video hosting
+- **HLS streaming** — Adaptive bitrate streaming via BunnyCDN
+- **Transcribe AI** — Automatic caption generation via BunnyCDN's transcription service
+- **Private videos** — Token-authenticated video access with signed URLs
+- **Library browser** — Browse and select videos from your BunnyCDN library in the editor
+- **REST API** — Proxy endpoints for BunnyCDN API operations
+
+**Class:** `AegisPro\Video\BunnyCDN`
+
+### Video Marketing
+
+`User` — Block sidebar → Marketing panel
+
+- **Email capture** — Overlay email form at configurable timestamp, integrates with FluentCRM and custom webhooks
+- **CTA overlays** — Custom call-to-action overlays with button, text, and timing
+- **Action bar** — Persistent bottom bar with share, like, and custom action buttons
+- **YouTube subscribe** — Subscribe button overlay for YouTube channel promotion
+
+**Class:** `AegisPro\Video\Marketing`
+
+### Multi-Audio Tracks
+
+`User` — Block sidebar → Audio panel
+
+- **Multiple audio tracks** — Add language dubs, director's commentary, audio descriptions
+- **Audio selector** — Viewer-facing dropdown to switch audio tracks
+- **Default track** — Configure which track plays by default
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProAudioTracks` | array | `[]` | Array of audio track objects |
+| `aegisProDefaultAudioTrack` | number | `0` | Default track index |
+| `aegisProShowAudioSelector` | boolean | `true` | Show track selector UI |
+
+**Class:** `AegisPro\Video\MultiAudio`
+
+### Video Privacy
+
+`User` `Dev` — Block sidebar → Privacy panel
+
+- **Private videos** — Restrict video access to logged-in users
+- **Role gating** — Require specific WordPress role to view
+- **Capability gating** — Require specific capability
+- **Expiring URLs** — Time-limited video URLs with HMAC signatures
+- **Dynamic watermarks** — Overlay viewer's username/email on the video to deter piracy
+
+**Class:** `AegisPro\Video\Privacy`
+
+### Video SEO (Rank Math)
+
+`Dev` — Automatic when Rank Math is active
+
+- **VideoObject schema** — Outputs structured data for video blocks
+- **Video sitemaps** — Integrates with Rank Math's sitemap module
+- **Automatic metadata** — Extracts title, description, thumbnail, duration from video blocks
+- Requires Rank Math SEO plugin
+
+**Class:** `AegisPro\Video\RankMathIntegration`
 
 ### Interactivity Store
 
-- WordPress Interactivity API integration
-- Server-side rendered state with client-side hydration
-- Shared state management across video instances
-- Chapter navigation and playlist controls
+`Dev`
+
+- WordPress Interactivity API integration for `core/video`
+- Server-side rendered state with client-side hydration via `wp_interactivity_state()` and `wp_interactivity_config()`
+- Shared state: `isSticky`, `playlistIndex`, `playlistCount`
+- SSR context: `postId`, `videoId`, `playlistCount`, `playlistIndex`, `chapters`
+- Directives: `data-wp-on--progress`, `data-wp-class--is-sticky`, controls show/hide
+
+**Class:** `AegisPro\Video\InteractivityStore`
 
 ### Dynamic Sources
 
-- **ACF** — Bind video source to ACF fields
-- **Meta Box** — Bind to Meta Box plugin fields
+`User` `Dev` — Block sidebar → Dynamic Source panel
+
+- **ACF** — Bind video source to Advanced Custom Fields
+- **Meta Box** — Bind to Meta Box plugin fields (handles file arrays and attachment IDs)
 - **User Meta** — Bind to current user's meta fields
-- **Computed Metadata** — Auto-extract duration, dimensions, filesize, format
+- **Computed Metadata** — Auto-extract duration, width, height, filesize, format, bitrate from attachment metadata
+- **REST API** — `GET /video/bindings/meta-keys` and `GET /video/bindings/metadata/{post_id}`
+
+**Class:** `AegisPro\Video\BlockBindings`
+
+---
 
 ## Enhanced Map Block
 
@@ -114,9 +261,153 @@ Aegis Pro extends `aegis/map` with professional mapping features:
 - Dynamic markers from CPT posts with lat/lng meta fields (max 100)
 - Custom style JSON for map theming
 
+**Class:** `Aegis\Pro\Blocks\Map`
+
+---
+
+## Query Loop Pro
+
+`User` `Dev`
+
+Aegis Pro extends the core Query Loop block (`core/query`) with 19 feature classes providing advanced layouts, filtering, conditions, and performance.
+
+### AJAX Pagination
+
+Replace standard page reloads with seamless AJAX-powered pagination:
+
+- **Load More** — Button to append next page of results
+- **Infinite Scroll** — Automatically load more as user scrolls
+- **AJAX Page Navigation** — Replace pagination links with AJAX requests
+- REST API endpoint for fetching paginated results
+
+**Class:** `AegisPro\Query\AjaxPagination`
+
+### Carousel Layout
+
+Display query results as a slider/carousel:
+
+- Navigation arrows and pagination dots
+- Autoplay with configurable interval
+- Responsive slides per page
+- Loop and drag support
+
+**Class:** `AegisPro\Query\CarouselLayout`
+
+### Masonry Layout
+
+CSS-based and JavaScript-enhanced masonry grid:
+
+- Automatic item positioning based on content height
+- Configurable column count
+- Responsive breakpoints
+
+**Class:** `AegisPro\Query\MasonryLayout`
+
+### Frontend Filters
+
+Visitor-facing filter UI for query results:
+
+- **Taxonomy filters** — Dropdown or checkbox filters by category, tag, or custom taxonomy
+- **Search** — Live search within query results
+- **Sorting** — Sort by date, title, or custom field
+- **Custom field filters** — Filter by meta values
+
+**Class:** `AegisPro\Query\FrontendFilters`
+
+### Image Source
+
+Choose which image to display in `core/post-featured-image`:
+
+- **Content images** — Use the Nth image from post content instead of featured image
+- **ACF fields** — Pull image from ACF image field
+- **MetaBox fields** — Pull image from Meta Box field
+- **Fallback chain** — Configure priority order for image sources
+- REST API preview endpoint for the editor
+
+**Class:** `AegisPro\Query\ImageSource`
+
+### Block Bindings
+
+WordPress Block Bindings API integration:
+
+- Binding source: `aegis-pro/query-data`
+- Bind block attributes to post meta, custom fields, and computed values
+- Dynamic data display without custom templates
+
+**Class:** `AegisPro\Query\BlockBindings`
+
+### Block Conditions
+
+Block-level conditional visibility for Pro conditions:
+
+- **Cookie** — Show/hide based on browser cookie values
+- **Referral source** — Target visitors from specific URLs
+- **ACF field** — Evaluate ACF field values
+- **MetaBox field** — Evaluate Meta Box field values
+- **Post/User meta** — Check arbitrary meta with comparison operators
+- **Advanced location** — Taxonomy term, CPT archive, and template conditions
+- Hooks `render_block` at priority 12 (after free conditions)
+
+**Class:** `AegisPro\Query\BlockConditions`
+
+### Query Performance
+
+Caching and optimization for Query Loop blocks:
+
+- **Transient caching** — Cache query results with automatic invalidation
+- **Lazy loading** — Defer rendering of off-screen query results
+- **Query optimization** — Reduce database queries for complex loops
+
+**Class:** `AegisPro\Query\QueryPerformance`
+
+### Query Interactivity Store
+
+WordPress Interactivity API integration for reactive query interactions:
+
+- Namespace: `aegis-pro/query`
+- Reactive state management for filters, pagination, and layouts
+- Client-side hydration of server-rendered query results
+
+**Class:** `AegisPro\Query\InteractivityStore`
+
+### Plugin-Specific Conditions
+
+Conditional query filtering based on active plugins:
+
+| Class | Plugin | Conditions |
+|-------|--------|------------|
+| `WooCommerceConditions` | WooCommerce | Product status, price range, stock, categories, on-sale |
+| `WooCommerceIntegration` | WooCommerce | Product grid layouts, cart/checkout awareness |
+| `LearnDashConditions` | LearnDash | Course enrollment, completion status, group membership |
+| `LifterLMSConditions` | LifterLMS | Membership level, course progress, enrollment |
+| `SenseiLMSConditions` | Sensei LMS | Course enrollment, lesson completion |
+| `FluentFormsConditions` | Fluent Forms | Form submission status |
+| `FluentBookingConditions` | Fluent Booking | Booking status |
+| `BaseConditions` | — | Shared condition evaluation logic |
+| `FieldIntegration` | ACF / Meta Box | Custom field value conditions |
+
+---
+
+## Global Styles Manager
+
+`User` `Designer`
+
+An admin interface for managing custom global CSS classes that can be applied to any block.
+
+- **Admin page** — Dedicated page under the Aegis menu for creating and managing CSS classes
+- **Class builder** — Visual interface for defining CSS properties
+- **Block integration** — Classes appear in the block sidebar for easy application
+- **Renderer** — Outputs custom CSS on the frontend only when classes are in use
+
+**Classes:** `Aegis\Pro\GlobalStyles\AdminPage`, `Aegis\Pro\GlobalStyles\Manager`, `Aegis\Pro\GlobalStyles\Renderer`
+
+---
+
 ## Pattern Control
 
-Aegis Pro includes an admin interface to disable block patterns and templates from third-party plugins:
+`User`
+
+Admin interface to disable block patterns and templates from third-party plugins:
 
 - **WooCommerce** — Disable store patterns and templates
 - **LearnDash** — Disable course patterns
@@ -126,30 +417,49 @@ Aegis Pro includes an admin interface to disable block patterns and templates fr
 - **Fluent Booking** — Disable booking patterns
 - **Theme patterns** — Selectively disable Aegis theme patterns
 
+Settings stored in `aegis_pattern_control` option. Disabled patterns are unregistered at `init` time.
+
+**Class:** `AegisPro\PatternControl`
+
+---
+
 ## Video LMS & CRM Integrations
 
-Aegis Pro extends the Video block with deep LMS and CRM integration for video-based course completion tracking.
+`User` `Dev`
+
+Deep LMS and CRM integration for video-based course completion tracking.
 
 ### LearnDash Integration
 
 - **Completion threshold** — Configurable percentage (10–100%) required to mark a lesson complete
 - **Auto-complete** — Automatically mark the lesson complete when the threshold is reached
 - **Force watch** — Prevent manual lesson completion until the video has been watched
-- **Class:** `Aegis\Pro\Video\LearnDash`
+- **REST API** — `POST /aegis-pro/v1/learndash/complete`
+- **User meta:** `aegis_learndash_video_progress`
+
+**Class:** `AegisPro\Video\LearnDash`
 
 ### LifterLMS Integration
 
 - **Completion threshold** — Same configurable percentage system
-- **Auto-complete** — Calls `llms_mark_complete()` with a custom trigger
+- **Auto-complete** — Calls `llms_mark_complete()` with custom `aegis_video_completion` trigger
 - **Force watch** — Hooks `llms_allow_lesson_completion` to block premature completion
-- **Class:** `Aegis\Pro\Video\LifterLMS`
+- **REST API** — `POST /aegis-pro/v1/lifterlms/complete`
+- **User meta:** `aegis_lifterlms_video_progress`
+
+**Class:** `AegisPro\Video\LifterLMS`
 
 ### FluentCRM Integration
 
 - **On Play** — Trigger automation and apply tags when video starts
 - **On Milestone** — Trigger automation at a configurable percentage (default 50%)
 - **On Complete** — Trigger automation, apply/remove tags, add to lists on video completion
-- **Class:** `Aegis\Pro\Video\FluentCRM`
+- **REST API** — `POST /aegis-pro/v1/fluentcrm/event`
+- **Custom action:** `aegis_pro_fluentcrm_video_event`
+
+**Class:** `AegisPro\Video\FluentCRM`
+
+---
 
 ## Block Registration
 
@@ -159,12 +469,30 @@ Aegis Pro registers its blocks via the `aegis/blocks` package:
 - `Aegis\Blocks\Slide` — Slide block registration
 - `Aegis\Pro\Blocks\Slider` — Pro slider extensions
 - `Aegis\Pro\Blocks\Modal` — Pro modal extensions
-- `Aegis\Pro\Blocks\Toggle` — Toggle block
+- `Aegis\Pro\Blocks\Toggle` — Toggle block extensions
+- `Aegis\Pro\Blocks\Countdown` — Countdown block extensions
 - `Aegis\Pro\Blocks\Map` — Map block pro extensions
 
 <Note>
 The theme framework includes duplicate registration guards to prevent conflicts when both theme and Pro plugin register the same blocks.
 </Note>
+
+---
+
+## REST API Endpoints
+
+| Endpoint | Method | Feature |
+|----------|--------|---------|
+| `/aegis-pro/v1/learndash/complete` | POST | LearnDash video completion |
+| `/aegis-pro/v1/lifterlms/complete` | POST | LifterLMS video completion |
+| `/aegis-pro/v1/fluentcrm/event` | POST | FluentCRM video events |
+| `/aegis-pro/v1/video/preferences` | POST | Save volume/speed preferences |
+| `/aegis-pro/v1/video/bindings/meta-keys` | GET | Available meta keys for binding |
+| `/aegis-pro/v1/video/bindings/metadata/{id}` | GET | Computed video metadata |
+| `/aegis-pro/v1/video/analytics/*` | GET/POST | Video analytics data |
+| `/aegis-pro/v1/bunnycdn/*` | GET/POST | BunnyCDN API proxy |
+
+---
 
 ## Installation
 

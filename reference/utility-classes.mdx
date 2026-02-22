@@ -1,0 +1,200 @@
+---
+title: "Utility Classes"
+description: "CSS utility classes generated from theme.json design tokens"
+---
+
+`Designer` `Dev` `Free`
+
+## Overview
+
+Aegis generates a comprehensive set of CSS utility classes from `theme.json` design tokens. All classes use the `aegis-` prefix to avoid conflicts with other frameworks.
+
+**Class:** `Aegis\Framework\DesignSystem\UtilityClasses`
+
+The utility CSS is generated dynamically and output inline via the `Styleable` interface — only when utility classes are detected in the page content.
+
+## Spacing
+
+Generated from 7 spacing sizes defined in `theme.json`: `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`.
+
+### Padding
+
+| Class | CSS |
+|-------|-----|
+| `aegis-p-{size}` | `padding: var(--wp--preset--spacing--{size})` |
+| `aegis-pt-{size}` | `padding-top` |
+| `aegis-pr-{size}` | `padding-right` |
+| `aegis-pb-{size}` | `padding-bottom` |
+| `aegis-pl-{size}` | `padding-left` |
+| `aegis-px-{size}` | `padding-left` + `padding-right` |
+| `aegis-py-{size}` | `padding-top` + `padding-bottom` |
+| `aegis-p-0` | `padding: 0` |
+
+### Margin
+
+| Class | CSS |
+|-------|-----|
+| `aegis-m-{size}` | `margin: var(--wp--preset--spacing--{size})` |
+| `aegis-mt-{size}` | `margin-top` |
+| `aegis-mr-{size}` | `margin-right` |
+| `aegis-mb-{size}` | `margin-bottom` |
+| `aegis-ml-{size}` | `margin-left` |
+| `aegis-mx-{size}` | `margin-left` + `margin-right` |
+| `aegis-my-{size}` | `margin-top` + `margin-bottom` |
+| `aegis-m-0` | `margin: 0` |
+| `aegis-m-auto` | `margin: auto` |
+| `aegis-mx-auto` | `margin-left: auto; margin-right: auto` |
+
+### Gap
+
+| Class | CSS |
+|-------|-----|
+| `aegis-gap-{size}` | `gap: var(--wp--preset--spacing--{size})` |
+| `aegis-gap-x-{size}` | `column-gap` |
+| `aegis-gap-y-{size}` | `row-gap` |
+| `aegis-gap-0` | `gap: 0` |
+
+## Typography
+
+### Font Size
+
+Generated from 15 sizes: `8`, `10`, `12`, `14`, `16`, `18`, `20`, `22`, `24`, `28`, `32`, `36`, `40`, `44`, `48`.
+
+| Class | CSS |
+|-------|-----|
+| `aegis-text-{size}` | `font-size: var(--wp--preset--font-size--{size})` |
+| `aegis-text-inherit` | `font-size: inherit` |
+
+### Font Weight
+
+Generated from 9 weights defined in `theme.json`:
+
+| Class | CSS Variable |
+|-------|-------------|
+| `aegis-font-thin` | `--wp--custom--font-weight--thin` |
+| `aegis-font-extralight` | `--wp--custom--font-weight--extra-light` |
+| `aegis-font-light` | `--wp--custom--font-weight--light` |
+| `aegis-font-regular` | `--wp--custom--font-weight--regular` |
+| `aegis-font-medium` | `--wp--custom--font-weight--medium` |
+| `aegis-font-semibold` | `--wp--custom--font-weight--semi-bold` |
+| `aegis-font-bold` | `--wp--custom--font-weight--bold` |
+| `aegis-font-extrabold` | `--wp--custom--font-weight--extra-bold` |
+| `aegis-font-black` | `--wp--custom--font-weight--black` |
+
+### Text Transform
+
+`aegis-uppercase`, `aegis-lowercase`, `aegis-capitalize`, `aegis-normal-case`
+
+### Text Alignment
+
+`aegis-text-left`, `aegis-text-center`, `aegis-text-right`, `aegis-text-justify`
+
+### Text Decoration
+
+`aegis-underline`, `aegis-line-through`, `aegis-no-underline`
+
+### Font Style
+
+`aegis-italic`, `aegis-not-italic`
+
+### Line Height
+
+| Class | Value |
+|-------|-------|
+| `aegis-leading-none` | `1` |
+| `aegis-leading-tight` | `1.25` |
+| `aegis-leading-snug` | `1.375` |
+| `aegis-leading-normal` | `1.5` |
+| `aegis-leading-relaxed` | `1.625` |
+| `aegis-leading-loose` | `2` |
+
+### Letter Spacing
+
+| Class | Value |
+|-------|-------|
+| `aegis-tracking-tighter` | `-0.05em` |
+| `aegis-tracking-tight` | `-0.025em` |
+| `aegis-tracking-normal` | `0` |
+| `aegis-tracking-wide` | `0.025em` |
+| `aegis-tracking-wider` | `0.05em` |
+| `aegis-tracking-widest` | `0.1em` |
+
+### Word Break & Truncate
+
+`aegis-break-normal`, `aegis-break-words`, `aegis-break-all`, `aegis-truncate`
+
+## Layout
+
+### Display
+
+`aegis-block`, `aegis-inline-block`, `aegis-inline`, `aegis-flex`, `aegis-inline-flex`, `aegis-grid`, `aegis-inline-grid`, `aegis-hidden`
+
+### Flexbox
+
+| Category | Classes |
+|----------|---------|
+| **Direction** | `aegis-flex-row`, `aegis-flex-row-reverse`, `aegis-flex-col`, `aegis-flex-col-reverse` |
+| **Wrap** | `aegis-flex-wrap`, `aegis-flex-wrap-reverse`, `aegis-flex-nowrap` |
+| **Flex** | `aegis-flex-1`, `aegis-flex-auto`, `aegis-flex-initial`, `aegis-flex-none` |
+| **Grow/Shrink** | `aegis-grow`, `aegis-grow-0`, `aegis-shrink`, `aegis-shrink-0` |
+| **Justify** | `aegis-justify-start`, `aegis-justify-end`, `aegis-justify-center`, `aegis-justify-between`, `aegis-justify-around`, `aegis-justify-evenly` |
+| **Align Items** | `aegis-items-start`, `aegis-items-end`, `aegis-items-center`, `aegis-items-baseline`, `aegis-items-stretch` |
+| **Align Self** | `aegis-self-auto`, `aegis-self-start`, `aegis-self-end`, `aegis-self-center`, `aegis-self-stretch` |
+
+### Position
+
+`aegis-static`, `aegis-relative`, `aegis-absolute`, `aegis-fixed`, `aegis-sticky`
+
+### Inset
+
+`aegis-inset-0`, `aegis-top-0`, `aegis-right-0`, `aegis-bottom-0`, `aegis-left-0`
+
+### Z-Index
+
+`aegis-z-0`, `aegis-z-10`, `aegis-z-20`, `aegis-z-30`, `aegis-z-40`, `aegis-z-50`, `aegis-z-auto`
+
+### Overflow
+
+`aegis-overflow-auto`, `aegis-overflow-hidden`, `aegis-overflow-visible`, `aegis-overflow-scroll`, `aegis-overflow-x-auto`, `aegis-overflow-y-auto`, `aegis-overflow-x-hidden`, `aegis-overflow-y-hidden`
+
+### Width & Height
+
+`aegis-w-full`, `aegis-w-screen`, `aegis-w-auto`, `aegis-w-fit`, `aegis-h-full`, `aegis-h-screen`, `aegis-h-auto`, `aegis-h-fit`, `aegis-min-h-screen`, `aegis-min-h-full`, `aegis-max-w-full`, `aegis-max-w-screen`
+
+## Effects
+
+### Shadows
+
+Generated from 8 shadow sizes: `none`, `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`.
+
+| Class | CSS |
+|-------|-----|
+| `aegis-shadow-{size}` | `box-shadow: var(--wp--preset--shadow--{size})` |
+
+### Border Radius
+
+`aegis-rounded-none`, `aegis-rounded-sm`, `aegis-rounded`, `aegis-rounded-md`, `aegis-rounded-lg`, `aegis-rounded-xl`, `aegis-rounded-2xl`, `aegis-rounded-full`
+
+### Opacity
+
+`aegis-opacity-0`, `aegis-opacity-25`, `aegis-opacity-50`, `aegis-opacity-75`, `aegis-opacity-100`
+
+### Transitions
+
+`aegis-transition`, `aegis-transition-none`, `aegis-transition-colors`, `aegis-transition-opacity`, `aegis-transition-shadow`, `aegis-transition-transform`
+
+## Usage
+
+Add utility classes via the **Additional CSS class(es)** field in the block sidebar, or via the `className` attribute in block markup:
+
+```html
+<!-- wp:group {"className":"aegis-flex aegis-gap-md aegis-items-center aegis-p-lg"} -->
+<div class="wp-block-group aegis-flex aegis-gap-md aegis-items-center aegis-p-lg">
+  <!-- content -->
+</div>
+<!-- /wp:group -->
+```
+
+<Tip>
+Utility classes use theme.json design tokens, so they automatically adapt to your theme's spacing scale, font sizes, and shadow presets. They also work with dark mode since they reference CSS custom properties.
+</Tip>

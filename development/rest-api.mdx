@@ -126,15 +126,17 @@ Search documentation content.
 
 ## Aegis Pro REST API
 
-### Save Video Preferences
+`Pro`
+
+All Pro endpoints are registered under the `aegis-pro/v1` namespace.
+
+### Video Preferences
 
 ```
 POST /wp-json/aegis-pro/v1/video/preferences
 ```
 
 Saves user video playback preferences (volume, speed).
-
-**Parameters:**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -144,21 +146,103 @@ Saves user video playback preferences (volume, speed).
 
 For logged-in users, preferences are stored in `user_meta`. For anonymous users, preferences are stored in cookies (30-day expiry).
 
-### Get Meta Keys
+### Video Bindings
 
 ```
 GET /wp-json/aegis-pro/v1/video/bindings/meta-keys
 ```
 
-Returns available meta keys for dynamic video source binding.
-
-### Get Computed Metadata
+Returns available meta keys for dynamic video source binding. Requires `edit_posts` capability.
 
 ```
 GET /wp-json/aegis-pro/v1/video/bindings/metadata/{post_id}
 ```
 
 Returns computed metadata (duration, dimensions, filesize, format, bitrate) for a video field.
+
+### Video Analytics
+
+```
+POST /wp-json/aegis-pro/v1/video/analytics/track
+```
+
+Records a video analytics event (play, pause, seek, ended, heartbeat, unload).
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `video_id` | string | Video identifier |
+| `post_id` | integer | Post containing the video |
+| `event` | string | Event type |
+| `current_time` | number | Current playback position |
+| `duration` | number | Video duration |
+| `retention_data` | array | Retention bucket data (on ended events) |
+
+```
+GET /wp-json/aegis-pro/v1/video/analytics/retention/{video_id}
+```
+
+Returns aggregated retention curve data (100 buckets).
+
+```
+GET /wp-json/aegis-pro/v1/video/analytics/user/{user_id}
+```
+
+Returns paginated user watch history.
+
+```
+GET /wp-json/aegis-pro/v1/video/analytics/top
+```
+
+Returns top videos dashboard data, sortable by `views`, `watch_time`, or `completion_rate`.
+
+### BunnyCDN
+
+```
+POST /wp-json/aegis-pro/v1/bunnycdn/upload
+GET  /wp-json/aegis-pro/v1/bunnycdn/library/{library_id}
+GET  /wp-json/aegis-pro/v1/bunnycdn/status/{library_id}/{video_id}
+POST /wp-json/aegis-pro/v1/bunnycdn/webhook
+POST /wp-json/aegis-pro/v1/bunnycdn/translate/{library_id}/{video_id}
+POST /wp-json/aegis-pro/v1/bunnycdn/captions/{library_id}/{video_id}
+DELETE /wp-json/aegis-pro/v1/bunnycdn/captions/{library_id}/{video_id}
+GET  /wp-json/aegis-pro/v1/bunnycdn/chapters/{library_id}/{video_id}
+```
+
+Proxy endpoints for BunnyCDN Stream API operations including upload, library browsing, transcoding status, webhook handling, caption management, and smart chapter generation.
+
+### LMS Completion
+
+```
+POST /wp-json/aegis-pro/v1/learndash/complete
+```
+
+Records video progress for LearnDash and triggers lesson completion when threshold is met.
+
+```
+POST /wp-json/aegis-pro/v1/lifterlms/complete
+```
+
+Records video progress for LifterLMS and triggers lesson completion.
+
+### FluentCRM Events
+
+```
+POST /wp-json/aegis-pro/v1/fluentcrm/event
+```
+
+Sends video events (play, milestone, complete) to FluentCRM for automation triggers, tag management, and list management.
+
+### Map Geocoding
+
+```
+GET /wp-json/aegis/v1/map/geocode
+```
+
+Server-side geocoding proxy for Google Maps API. Requires `edit_posts` capability. The API key is never exposed to the browser.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `address` | string | Address to geocode |
 
 ## Authentication
 

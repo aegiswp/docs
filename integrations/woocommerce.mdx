@@ -34,11 +34,40 @@ Aegis includes WooCommerce-specific templates:
 
 ## Mini Cart
 
+`User` `Designer` `Free`
+
 Aegis includes a **Mini Cart** template part (`parts/mini-cart.html`) that provides a slide-out cart sidebar:
 
 - Accessible from the header
 - Shows cart contents without page reload
 - Registered as an `uncategorized` template part area
+
+### Mini-Cart Style Variants
+
+Three CSS-based variants are available via `className` on the `woocommerce/mini-cart` block:
+
+| Variant | Class | Description |
+|---------|-------|-------------|
+| **Default** | _(none)_ | Standard drawer with balanced spacing |
+| **Compact** | `is-style-compact` | 48px thumbnails, tighter spacing, 13px fonts, hidden product metadata, condensed footer |
+| **Rich** | `is-style-rich` | 96px thumbnails, larger fonts, metadata pills, 2px borders, stacked footer buttons |
+
+#### Usage
+
+Add the `className` attribute to the mini-cart block in any header pattern:
+
+```html
+<!-- Default -->
+<!-- wp:woocommerce/mini-cart {} /-->
+
+<!-- Compact -->
+<!-- wp:woocommerce/mini-cart {"className":"is-style-compact"} /-->
+
+<!-- Rich -->
+<!-- wp:woocommerce/mini-cart {"className":"is-style-rich"} /-->
+```
+
+All variants include dark mode overrides and reduced motion support.
 
 ## Styling
 
@@ -148,14 +177,31 @@ Use WooCommerce blocks instead of shortcodes for better integration with the blo
 2. Check template hierarchy
 3. Reset customizations if needed
 
-## Checkout Optimization
+## Multi-Step Checkout
 
-The multi-step checkout template (`page-checkout-multi-step.html`) provides:
+`User` `Free`
 
-- Step-by-step checkout flow
-- Reduced cognitive load
-- Mobile-optimized layout
-- Progress indicator
+The multi-step checkout template (`page-checkout-multi-step.html`) provides a step-by-step checkout flow:
+
+- **Step-by-step flow** — Breaks checkout into discrete steps (contact, shipping, payment)
+- **Progress indicator** — Visual step tracker showing current position
+- **Reduced cognitive load** — Only one section visible at a time
+- **Mobile-optimized** — Responsive layout with touch-friendly navigation
+- **Localized JS** — Step labels and navigation text are translatable
+
+### Usage
+
+1. Go to **Appearance → Editor → Templates**
+2. Assign the **Page: Checkout Multi-Step** template to your checkout page
+3. The multi-step flow activates automatically
+
+### Implementation
+
+`Dev`
+
+- **Class:** `Aegis\Checkout\MultiStep` (`src/Checkout/MultiStep.php`)
+- **CSS:** `src/Checkout/css/multi-step.css` — conditionally loaded when the template is detected
+- **JS:** `src/Checkout/js/multi-step.js` — step navigation and validation logic
 
 ## Framework Implementation
 

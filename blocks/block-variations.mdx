@@ -214,22 +214,33 @@ Pre-styled newsletter signup form layout.
 
 **Base Block:** `core/query`
 
-Automatically queries and displays related posts based on taxonomy.
+`Free`
+
+Automatically queries and displays related posts based on shared taxonomy terms.
 
 ### Features
 
-- Same category/tag matching
-- Configurable post count
-- Excludes current post
-- Grid or list layout
+- **Taxonomy matching** — Auto-detect, category, or tag-based relation
+- **4 style variants** — Grid, list, cards, minimal
+- **Configurable elements** — Featured image, date, excerpt, category badge
+- **Fallback behavior** — Show latest posts or hide when no related posts found
+- **Image aspect ratios** — 16/9, 4/3, 1/1, 3/2
+- **Excludes current post** automatically
+
+<Note>
+Aegis also registers a dedicated `aegis/related-posts` custom block with a full editor UI. See [Custom Blocks → Related Posts](/blocks/custom-blocks#related-posts-block) for the standalone block with all attributes and settings.
+</Note>
 
 ### Usage
 
 ```html
 <!-- wp:query {"className":"is-style-related-posts"} -->
 <div class="wp-block-query is-style-related-posts">
-  <!-- wp:post-template -->
-    <!-- Related post display -->
+  <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+    <!-- wp:post-featured-image /-->
+    <!-- wp:post-title /-->
+    <!-- wp:post-date /-->
+    <!-- wp:post-excerpt /-->
   <!-- /wp:post-template -->
 </div>
 <!-- /wp:query -->

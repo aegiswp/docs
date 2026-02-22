@@ -1,0 +1,81 @@
+---
+title: "Global Styles Manager"
+description: "Admin interface for managing custom global CSS classes"
+---
+
+`User` `Designer` `Pro`
+
+## Overview
+
+The Global Styles Manager is an Aegis Pro feature that provides an admin interface for creating and managing custom CSS classes that can be applied to any block.
+
+## How It Works
+
+1. **Create classes** in the admin page under **Aegis → Global Styles**
+2. **Define CSS properties** using the visual class builder
+3. **Apply classes** to any block via the block sidebar → Additional CSS class(es)
+4. **Conditional output** — CSS is only rendered on the frontend when a class is actually used on the page
+
+## Admin Page
+
+Navigate to **Aegis → Global Styles** in the WordPress dashboard.
+
+### Class Builder
+
+The visual interface lets you define CSS properties without writing code:
+
+- **Class name** — The CSS class name (auto-prefixed or custom)
+- **Properties** — Visual controls for common CSS properties
+- **Preview** — Live preview of the class output
+- **Categories** — Organize classes into groups
+
+### Managing Classes
+
+| Action | Description |
+|--------|-------------|
+| **Add** | Create a new global CSS class |
+| **Edit** | Modify an existing class's properties |
+| **Delete** | Remove a class (check for usage first) |
+| **Duplicate** | Copy a class as a starting point |
+| **Export/Import** | Share class sets between sites |
+
+## Block Integration
+
+Once created, global classes appear in the block sidebar for easy application:
+
+1. Select any block in the editor
+2. Open the **Advanced** panel in the block sidebar
+3. Add the class name to **Additional CSS class(es)**
+
+The `BlockSettings\GlobalClasses` class in the framework handles the integration, making custom classes available in the editor autocomplete.
+
+## Renderer
+
+The `Renderer` class scans the page content at render time and outputs only the CSS for classes that are actually present on the page. This ensures zero unused CSS.
+
+## Architecture
+
+| Class | Purpose |
+|-------|---------|
+| `Aegis\Pro\GlobalStyles\AdminPage` | Admin page registration and UI rendering |
+| `Aegis\Pro\GlobalStyles\Manager` | CRUD operations for class definitions |
+| `Aegis\Pro\GlobalStyles\Renderer` | Frontend CSS output (conditional) |
+
+## Storage
+
+Class definitions are stored in the `aegis_global_styles` WordPress option as a serialized array of class objects.
+
+## Usage Example
+
+```html
+<!-- Apply a custom global class to a Group block -->
+<!-- wp:group {"className":"my-card-style"} -->
+<div class="wp-block-group my-card-style">
+  <!-- content -->
+</div>
+<!-- /wp:group -->
+```
+
+<Tip>
+Global Styles classes are ideal for creating reusable design patterns that can be applied consistently across your site without duplicating CSS in multiple places.
+</Tip>

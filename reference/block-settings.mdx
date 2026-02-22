@@ -3,9 +3,40 @@ title: "Block Settings"
 description: "Additional block settings provided by Aegis"
 ---
 
+`Dev` `Free`
+
 ## Overview
 
-Aegis extends WordPress blocks with additional settings through the BlockSettings system.
+Aegis extends WordPress blocks with additional settings through 22 classes in the `BlockSettings` namespace (`vendor/aegis/framework/src/BlockSettings/`). Each class hooks into `register_block_type_args` to add custom attributes and `render_block` to modify output.
+
+## Settings Reference
+
+| Class | Feature | Audience |
+|-------|---------|----------|
+| `AdditionalStyles` | Extra block style registrations | `Designer` |
+| `Animation` | Scroll-triggered animations (fade, slide, zoom, etc.) | `User` `Designer` |
+| `BackdropBlur` | Backdrop blur filter for overlay effects | `Designer` |
+| `BoxShadow` | Box shadow presets and custom values | `User` `Designer` |
+| `CopyToClipboard` | Click-to-copy functionality for code/text blocks | `User` |
+| `CssFilter` | CSS filter controls (blur, brightness, contrast, etc.) | `Designer` |
+| `GlobalClasses` | Apply global CSS classes to any block | `User` `Designer` |
+| `Image` | Extended image settings (responsive, compare) | `User` |
+| `InlineColor` | Inline text color spans within paragraphs | `User` |
+| `InlineSvg` | Inline SVG rendering for image blocks | `Dev` |
+| `Onclick` | Custom onclick JavaScript actions | `Dev` |
+| `Opacity` | Block opacity control | `Designer` |
+| `Placeholder` | Placeholder/skeleton loading states | `Dev` |
+| `QueryEnhancements` | Meta queries, custom ordering, multi-post-type | `User` `Dev` |
+| `QueryLayout` | Query loop layout options | `User` |
+| `QueryNoResults` | Custom "no results" content for queries | `User` |
+| `Responsive` | Hide/show on breakpoints, reverse on mobile | `User` `Designer` |
+| `SubHeading` | Sub-heading text below headings | `User` |
+| `TemplateTags` | Dynamic template tag insertion | `Dev` |
+| `TextShadow` | Text shadow controls | `Designer` |
+| `Transform` | CSS transform controls (scale, rotate, translate, skew) | `Designer` |
+| `Visibility` | Conditional visibility rules | `User` |
+
+---
 
 ## Box Shadow
 
@@ -23,15 +54,30 @@ Add shadow effects to blocks via the Styles panel.
 }
 ```
 
-## Position
+**Class:** `BlockSettings\BoxShadow`
 
-Control block positioning within containers.
+## Animation
+
+Scroll-triggered entrance animations using IntersectionObserver.
 
 ### Options
 
-- Position type: static, relative, absolute, fixed, sticky
-- Offset values: top, right, bottom, left
-- Z-index control
+- **Animation type** — Fade, slide-up, slide-down, slide-left, slide-right, zoom-in, zoom-out
+- **Duration** — Animation speed
+- **Delay** — Stagger delay for sequential elements
+- **Threshold** — Viewport intersection threshold
+
+**Class:** `BlockSettings\Animation`
+
+## CSS Filter
+
+Apply CSS filters to blocks.
+
+### Controls
+
+- Blur, Brightness, Contrast, Grayscale, Saturate
+
+**Class:** `BlockSettings\CssFilter`
 
 ## Transform
 
@@ -39,23 +85,66 @@ Apply CSS transforms to blocks.
 
 ### Controls
 
-- Scale (X, Y)
-- Rotate (degrees)
-- Translate (X, Y)
-- Skew (X, Y)
+- Scale (X, Y), Rotate (degrees), Translate (X, Y), Skew (X, Y)
 
-## Filter
+**Class:** `BlockSettings\Transform`
 
-Apply CSS filters to blocks.
+## Query Enhancements
 
-### Controls
+Extends the core Query Loop block with advanced query parameters.
 
-- Blur
-- Brightness
-- Contrast
-- Grayscale
-- Saturate
+### Features
+
+- **Meta queries** — Filter by custom field values with 14 comparison operators (=, !=, >, >=, <, <=, LIKE, NOT LIKE, IN, NOT IN, BETWEEN, NOT BETWEEN, EXISTS, NOT EXISTS)
+- **Meta types** — CHAR, NUMERIC, DECIMAL, DATE, DATETIME, TIME, BINARY
+- **Custom ordering** — Order by meta value, menu order, comment count, modified date, random
+- **Multi-post-type** — Query across multiple post types simultaneously
+
+**Class:** `BlockSettings\QueryEnhancements`
+
+## Responsive
+
+Controls block visibility and layout across breakpoints.
+
+### Features
+
+- **Hide on Mobile** — Hide blocks below configurable breakpoint
+- **Hide on Desktop** — Hide blocks above configurable breakpoint
+- **Reverse on Mobile** — Reverse column order on small screens
+- **Responsive spacer** — Different spacing per breakpoint
+
+**Class:** `BlockSettings\Responsive` (27KB — the largest BlockSettings class)
+
+## Visibility
+
+Conditional block visibility based on rules (free tier conditions).
+
+### Conditions
+
+- Lockdown, User Status, User Role, Date & Time, Screen Size, Browser & Device, URL Query String, Specific Users, Location
+
+**Class:** `BlockSettings\Visibility`
+
+## How It Works
+
+Each BlockSettings class follows the same pattern:
+
+1. **Attributes** — Adds custom attributes via `register_block_type_args` filter
+2. **Editor UI** — Injects sidebar controls via `enqueue_block_editor_assets`
+3. **Render** — Modifies block output via `render_block` filter
+4. **Localized data** — Passes configuration to JS via `wp_localize_script`
+
+```php
+// Example: How BoxShadow adds its attribute
+add_filter('register_block_type_args', function($args, $name) {
+    $args['attributes']['boxShadow'] = [
+        'type'    => 'string',
+        'default' => '',
+    ];
+    return $args;
+}, 10, 2);
+```
 
 <Tip>
-These settings are available in the block sidebar under Styles or in dedicated panels.
+All BlockSettings are available in the block sidebar under Styles or in dedicated panels. They apply to most block types automatically.
 </Tip>

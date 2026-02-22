@@ -3,20 +3,25 @@ title: "Admin Panel"
 description: "Centralized theme management dashboard"
 ---
 
+`User` `Free` `Pro`
+
 ## Overview
 
 Aegis provides a centralized admin panel under the **Aegis** menu in the WordPress dashboard. All theme features, blocks, and integrations are managed from this single location.
 
-The admin panel is organized into six tabs:
+The admin panel is organized into tabs. Pro tabs appear only when Aegis Pro is active.
 
-| Tab | Purpose |
-|-----|---------|
-| **Dashboard** | Theme overview, version info, and quick links |
-| **Blocks** | Enable or disable individual Aegis blocks |
-| **Modals** | Manage modal blocks and view modal feature status |
-| **Hooks** | Manage hook patterns and view available hooks |
-| **Conditionals** | Enable or disable conditional logic groups |
-| **Integrations** | Third-party plugin settings and feature toggles |
+| Tab | Tier | Purpose |
+|-----|------|---------|
+| **Dashboard** | `Free` | Theme overview, version info, and quick links |
+| **Blocks** | `Free` | Enable or disable individual Aegis blocks |
+| **Modals** | `Free` | Manage modal blocks and view modal feature status |
+| **Hooks** | `Free` | Manage hook patterns and view available hooks |
+| **Conditionals** | `Free` `Pro` | Enable or disable conditional logic groups |
+| **Integrations** | `Free` | Third-party plugin settings and feature toggles |
+| **Pattern Control** | `Pro` | Disable third-party plugin patterns and templates |
+| **Global Styles** | `Pro` | Custom CSS class manager |
+| **Analytics** | `Pro` | Video analytics dashboard |
 
 ## Dashboard
 
@@ -32,8 +37,13 @@ Toggle individual Aegis blocks on or off. Disabled blocks are unregistered and w
 
 Available blocks:
 
-- **Slider** (`aegis/slider`) — Responsive carousel
+- **Countdown** (`aegis/countdown`) — Countdown timer
 - **Modal** (`aegis/modal`) — Dialog overlays
+- **Slider** (`aegis/slider`) — Responsive carousel
+- **Map** (`aegis/map`) — Interactive Google Maps
+- **Related Posts** (`aegis/related-posts`) — Taxonomy-based related content
+- **Toggle** (`aegis/toggle`) — Accordion/toggle sections
+- **Video** (`aegis/video`) — Enhanced video player
 
 <Note>
 When a block is disabled, its assets are not loaded and the block type is not registered.
@@ -59,14 +69,16 @@ Overview and management for [Hook Patterns](/features/hook-patterns):
 
 ## Conditionals
 
+`Free` `Pro`
+
 Settings for the [Conditional Logic](/features/conditional-logic) system. Each condition group can be independently toggled:
 
-| Group | Controls |
-|-------|----------|
-| **Visibility** | Lockdown, Screen Size, Browser & Device |
-| **User** | User Status, User Role, Specific Users |
-| **Schedule** | Date & Time scheduling |
-| **Pro Conditions** | Cookie, Referral, ACF, MetaBox, Post Meta, User Meta |
+| Group | Tier | Controls |
+|-------|------|----------|
+| **Visibility** | `Free` | Lockdown, Screen Size, Browser & Device |
+| **User** | `Free` | User Status, User Role, Specific Users |
+| **Schedule** | `Free` | Date & Time scheduling |
+| **Pro Conditions** | `Pro` | Cookie, Referral, ACF, MetaBox, Post Meta, User Meta |
 
 Disabling a group removes its section from the Conditionals meta box in the editor across all post types.
 
@@ -74,7 +86,29 @@ Disabling a group removes its section from the Conditionals meta box in the edit
 
 Settings for third-party plugin integrations. Features are conditionally displayed based on which plugins are active.
 
+## Pattern Control
+
+`Pro`
+
+Admin interface to selectively disable block patterns and templates from third-party plugins. See [Aegis Pro → Pattern Control](/plugins/aegis-pro#pattern-control) for full details.
+
+Supported plugins: WooCommerce, LearnDash, LifterLMS, Sensei LMS, Fluent Forms, Fluent Booking, and Aegis theme patterns.
+
+## Global Styles
+
+`Pro`
+
+Admin page for creating and managing custom global CSS classes. See [Aegis Pro → Global Styles Manager](/plugins/aegis-pro#global-styles-manager) for full details.
+
+## Analytics
+
+`Pro`
+
+Video analytics dashboard with play/pause/seek/complete event tracking, Google Analytics integration, and per-user viewing history. See [Aegis Pro → Video Analytics](/plugins/aegis-pro#video-analytics) for full details.
+
 ## Implementation
+
+`Dev`
 
 The admin panel is implemented in `Aegis\Admin\ConditionalLogicSettings`:
 
@@ -82,3 +116,4 @@ The admin panel is implemented in `Aegis\Admin\ConditionalLogicSettings`:
 - Tab navigation is rendered via PHP with active state detection
 - Each tab has a dedicated render method
 - Styles are loaded from `src/Admin/css/admin-settings.css` and `src/Admin/css/hook-patterns.css`
+- Pro tabs are registered by `AegisPro\GlobalStyles\AdminPage`, `AegisPro\PatternControl`, and `AegisPro\Video\Analytics`

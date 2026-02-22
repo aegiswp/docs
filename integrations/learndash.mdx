@@ -99,6 +99,36 @@ LearnDash elements support Aegis dark mode:
 - Readable text on dark backgrounds
 - Consistent contrast ratios
 
+## Video Completion Tracking
+
+`User` `Dev` `Pro`
+
+Aegis Pro extends the Video block with LearnDash-specific completion tracking. When a video block is placed on a lesson or topic, it can automatically track viewing progress and mark the lesson complete.
+
+### Features
+
+- **Completion threshold** — Configurable percentage (10–100%, step 5) required to mark a lesson complete
+- **Auto-complete** — Automatically calls `learndash_process_mark_complete()` when the threshold is reached
+- **Force watch** — Hooks `learndash_mark_complete` to prevent manual lesson completion until the video has been watched to the required threshold
+- **Per-user tracking** — Progress stored in `aegis_learndash_video_progress` user meta
+
+### Settings
+
+In the block sidebar → Integrations → LearnDash:
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| Enable | toggle | off | Activate LearnDash tracking for this video |
+| Threshold | range | 90% | Minimum watch percentage for completion |
+| Auto-complete | toggle | on | Auto-mark lesson complete |
+| Force watch | toggle | off | Block manual completion until threshold met |
+
+### REST API
+
+- `POST /aegis-pro/v1/learndash/complete` — Records video progress and triggers completion
+
+**Class:** `AegisPro\Video\LearnDash`
+
 ## Best Practices
 
 <Tip>

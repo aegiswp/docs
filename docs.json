@@ -95,13 +95,15 @@
               "features/hook-patterns",
               "features/conditional-logic",
               "features/global-styles",
+              "features/global-styles-manager",
               "features/navigation",
               "features/search",
               "features/svg-icons",
               "features/dark-mode",
               "features/responsive",
               "features/performance",
-              "features/accessibility"
+              "features/accessibility",
+              "features/wordpress-resources-optimization"
             ]
           },
           {
@@ -151,7 +153,8 @@
             "group": "Architecture",
             "pages": [
               "development/architecture",
-              "development/rest-api"
+              "development/rest-api",
+              "development/embed-template"
             ]
           },
           {
@@ -190,7 +193,8 @@
               "reference/framework-overview",
               "reference/service-providers",
               "reference/block-settings",
-              "reference/inline-assets"
+              "reference/inline-assets",
+              "reference/utility-classes"
             ]
           }
         ]

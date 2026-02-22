@@ -94,6 +94,36 @@ add_theme_support('lifterlms-quizzes');
 add_theme_support('lifterlms-sidebars');
 ```
 
+## Video Completion Tracking
+
+`User` `Dev` `Pro`
+
+Aegis Pro extends the Video block with LifterLMS-specific completion tracking. When a video block is placed on a lesson, it can automatically track viewing progress and mark the lesson complete.
+
+### Features
+
+- **Completion threshold** — Configurable percentage (10–100%, step 5) required to mark a lesson complete
+- **Auto-complete** — Calls `llms_mark_complete()` with a custom `aegis_video_completion` trigger when the threshold is reached
+- **Force watch** — Hooks `llms_allow_lesson_completion` to block premature completion until the video has been watched
+- **Per-user tracking** — Progress stored in `aegis_lifterlms_video_progress` user meta
+
+### Settings
+
+In the block sidebar → Integrations → LifterLMS:
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| Enable | toggle | off | Activate LifterLMS tracking for this video |
+| Threshold | range | 90% | Minimum watch percentage for completion |
+| Auto-complete | toggle | on | Auto-mark lesson complete |
+| Force watch | toggle | off | Block manual completion until threshold met |
+
+### REST API
+
+- `POST /aegis-pro/v1/lifterlms/complete` — Records video progress and triggers completion
+
+**Class:** `AegisPro\Video\LifterLMS`
+
 ## Best Practices
 
 <Tip>

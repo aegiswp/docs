@@ -7,12 +7,58 @@ description: "Custom blocks built with the WordPress Interactivity API"
 
 Aegis includes custom blocks built with the WordPress Interactivity API for reactive, JavaScript-powered UI components. These blocks require a build step and are registered via `block.json` metadata.
 
-| Block | Name | Description |
-|-------|------|-------------|
-| Modal | `aegis/modal` | Accessible modal dialogs |
-| Slider | `aegis/slider` | Responsive carousels |
-| Slide | `aegis/slide` | Individual slides within sliders |
-| Map | `aegis/map` | Interactive Google Maps |
+| Block | Name | Tier | Description |
+|-------|------|------|-------------|
+| Countdown | `aegis/countdown` | `Free` `Pro` | Countdown timer with customizable segments |
+| Modal | `aegis/modal` | `Free` `Pro` | Accessible modal dialogs |
+| Slider | `aegis/slider` | `Free` `Pro` | Responsive carousels |
+| Slide | `aegis/slide` | `Free` | Individual slides within sliders |
+| Map | `aegis/map` | `Free` `Pro` | Interactive Google Maps |
+| Related Posts | `aegis/related-posts` | `Free` | Taxonomy-based related content |
+| Toggle | `aegis/toggle` | `Free` `Pro` | Accessible accordion/toggle sections |
+| Toggle Content | `aegis/toggle-content` | `Free` | Content area within toggles |
+| Video | `aegis/video` | `Free` `Pro` | Enhanced video player with custom controls |
+
+## Countdown Block
+
+`Free` `Pro`
+
+A countdown timer that counts down to a specific date and time with customizable segments, labels, separators, and expiry behavior.
+
+### Features
+
+- **Configurable segments** — Show or hide days, hours, minutes, seconds independently
+- **Custom labels** — Override default segment labels
+- **Separator styles** — Colon, dot, dash, or none
+- **Layout modes** — Inline or stacked
+- **Expiry message** — Display custom text when the countdown reaches zero
+- **Timezone** — UTC or visitor's local time
+- **Server-side rendered** — PHP render callback with `view.js` for client-side ticking
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `datetime` | string | `""` | Target date/time (ISO 8601) |
+| `showDays` | boolean | `true` | Show days segment |
+| `showHours` | boolean | `true` | Show hours segment |
+| `showMinutes` | boolean | `true` | Show minutes segment |
+| `showSeconds` | boolean | `true` | Show seconds segment |
+| `labels` | object | `{days, hours, minutes, seconds}` | Custom segment labels |
+| `separator` | string | `colon` | Separator style: `colon`, `dot`, `dash`, `none` |
+| `layout` | string | `inline` | Layout: `inline` or `stacked` |
+| `expiryMessage` | string | `""` | Message shown when countdown ends |
+| `timezone` | string | `utc` | Timezone: `utc` or `local` |
+
+### Usage
+
+Search for "Countdown" in the block inserter. Set a target date/time, choose which segments to display, and optionally configure an expiry message.
+
+### Pro Extensions
+
+<Tip>
+[Aegis Pro](/plugins/aegis-pro) adds evergreen timers (per-visitor countdowns), animation styles, auto-restart, expiry actions (redirect, hide, replace), urgency styling, and Event schema markup.
+</Tip>
 
 ## Modal Block
 
@@ -145,6 +191,132 @@ Search for "Map" in the block inserter. Set your Google Maps API key in the Aegi
 [Aegis Pro](/plugins/aegis-pro) adds custom markers, clustering, directions, store locator, geolocation, heatmap, drawing tools, data import, Schema.org output, and dynamic markers.
 </Tip>
 
+## Related Posts Block
+
+`Free`
+
+Displays posts related to the current content by shared taxonomy terms, with multiple layout variants and fallback options.
+
+### Features
+
+- **Taxonomy-based matching** — Auto-detect, category, or tag-based relation
+- **4 style variants** — Grid, list, cards, minimal
+- **Configurable elements** — Featured image, date, excerpt, category badge
+- **Fallback behavior** — Show latest posts or hide when no related posts found
+- **Image aspect ratios** — 16/9, 4/3, 1/1, 3/2
+- **Server-side rendered** — PHP render callback for SEO-friendly output
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `postsPerPage` | number | `3` | Number of related posts |
+| `columns` | number | `3` | Grid columns |
+| `showFeaturedImage` | boolean | `true` | Show featured image |
+| `showDate` | boolean | `true` | Show publish date |
+| `showExcerpt` | boolean | `true` | Show excerpt |
+| `showCategory` | boolean | `true` | Show category badge |
+| `heading` | string | `"Related Posts"` | Section heading text |
+| `headingTag` | string | `h2` | Heading element: `h2`–`h6` |
+| `styleVariant` | string | `grid` | Layout: `grid`, `list`, `cards`, `minimal` |
+| `taxonomySource` | string | `auto` | Relation source: `auto`, `category`, `post_tag` |
+| `fallbackBehavior` | string | `latest` | Fallback: `latest` or `hide` |
+| `excerptLength` | number | `20` | Excerpt word count |
+| `imageAspectRatio` | string | `16/9` | Image ratio: `16/9`, `4/3`, `1/1`, `3/2` |
+
+### Usage
+
+Search for "Related Posts" in the block inserter. Place it in your single post template. The block automatically queries posts sharing taxonomy terms with the current post.
+
+## Toggle Block
+
+`Free` `Pro`
+
+An accessible accordion/toggle block with expandable content sections, ideal for FAQs, collapsible content, and progressive disclosure.
+
+### Features
+
+- **Accessible** — Built with proper ARIA attributes and keyboard support
+- **Configurable heading** — Choose heading level (H2–H6 or paragraph)
+- **Icon options** — Chevron, plus, or arrow icons, positioned left or right
+- **Animation** — Configurable expand/collapse duration
+- **Multiple open** — Allow multiple toggles open simultaneously or single-open accordion mode
+- **Default state** — Start open or closed
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `heading` | string | `""` | Toggle heading text |
+| `headingTag` | string | `h3` | Heading element: `h2`–`h6`, `p` |
+| `isOpen` | boolean | `false` | Start expanded |
+| `iconPosition` | string | `right` | Icon position: `left` or `right` |
+| `iconType` | string | `chevron` | Icon style: `chevron`, `plus`, `arrow` |
+| `allowMultiple` | boolean | `true` | Allow multiple toggles open at once |
+| `animationDuration` | number | `300` | Animation duration in ms |
+
+### Usage
+
+Search for "Toggle" in the block inserter. Add a heading, then place any blocks inside the Toggle Content area. Group multiple toggles for an FAQ section.
+
+```html
+<!-- wp:aegis/toggle {"heading":"How does it work?"} -->
+  <!-- wp:aegis/toggle-content -->
+    <!-- wp:paragraph -->
+    <p>Your answer content here.</p>
+    <!-- /wp:paragraph -->
+  <!-- /wp:aegis/toggle-content -->
+<!-- /wp:aegis/toggle -->
+```
+
+### Toggle Content Block
+
+The `aegis/toggle-content` block is a child block that can only be used inside `aegis/toggle`. It serves as the expandable content area and supports any inner blocks.
+
+### Pro Extensions
+
+<Tip>
+[Aegis Pro](/plugins/aegis-pro) extends the Toggle block with additional animation styles, conditional display rules, and advanced configuration options.
+</Tip>
+
+## Video Block
+
+`Free` `Pro`
+
+An enhanced video block with custom player controls and accessibility features.
+
+### Features
+
+- **Custom controls** — Styled video player UI
+- **Poster image** — Custom thumbnail before playback
+- **Playback options** — Autoplay, loop, muted, plays inline
+- **Preload control** — Auto, metadata, or none
+- **Caption support** — Optional video caption
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `src` | string | `""` | Video source URL |
+| `poster` | string | `""` | Poster image URL |
+| `caption` | string | `""` | Video caption |
+| `autoplay` | boolean | `false` | Auto-start playback |
+| `loop` | boolean | `false` | Loop video |
+| `muted` | boolean | `false` | Start muted |
+| `controls` | boolean | `true` | Show player controls |
+| `preload` | string | `metadata` | Preload: `auto`, `metadata`, `none` |
+| `playsInline` | boolean | `true` | Play inline on mobile |
+
+### Usage
+
+Search for "Video" in the block inserter. Upload or link a video file, set a poster image, and configure playback options in the block sidebar.
+
+### Pro Extensions
+
+<Tip>
+[Aegis Pro](/plugins/aegis-pro) massively extends the Video block with engagement features (sticky player, focus mode, saved progress), advanced features (ambient light, thumbnail previews, touch gestures, playlists), chapters, analytics, BunnyCDN streaming, marketing tools, multi-audio tracks, privacy controls, and LMS/CRM integrations. See the [Aegis Pro](/plugins/aegis-pro) page for full details.
+</Tip>
+
 ## Best Practices
 
 ### Modal
@@ -162,9 +334,23 @@ Search for "Map" in the block inserter. Set your Google Maps API key in the Aegi
 - Consider auto-play carefully (can be annoying)
 - Test touch interactions on mobile
 
+### Countdown
+
+- Set realistic deadlines — avoid countdowns to dates far in the future
+- Always provide an expiry message so users see meaningful content after the timer ends
+- Use the stacked layout for mobile-heavy audiences
+- Consider timezone differences — use `local` for visitor-specific events
+
+### Toggle
+
+- Use descriptive headings — users should understand the content before expanding
+- Keep toggle content concise
+- Use single-open accordion mode for long FAQ lists to reduce scrolling
+- Ensure heading levels follow the page hierarchy
+
 ### Performance
 
-- Optimize images within sliders
+- Optimize images within sliders and related posts
 - Use lazy loading for off-screen slides
 - Minimize JavaScript in modal content
 - Test on slower devices

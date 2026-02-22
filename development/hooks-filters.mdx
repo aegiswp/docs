@@ -347,6 +347,77 @@ add_action('login_enqueue_scripts', function() {
 });
 ```
 
+## Aegis Pro Hooks & Filters
+
+`Pro` `Dev`
+
+### Video render_block Priorities
+
+Aegis Pro hooks `render_block_core/video` at multiple priorities for its feature modules:
+
+| Priority | Class | Feature |
+|----------|-------|---------|
+| 10 | `Engagement` | Sticky player, focus mode, saved progress |
+| 11 | `AdvancedFeatures` | Ambient light, thumbnails, gestures, playlists |
+| 12 | `Chapters` | Chapter markers, captions, timestamp links |
+| 13 | `Analytics` | Analytics data attributes |
+| 14 | `BunnyCDN` | HLS streaming, private video access |
+| 15 | `Marketing` | Email capture, CTA overlays |
+| 16 | `MultiAudio` | Audio track selector |
+| 17 | `Privacy` | Role gating, expiring URLs, watermarks |
+| 18 | `RankMathIntegration` | VideoObject schema |
+| 19 | `BlockBindings` | Dynamic source binding, computed metadata |
+| 20 | `InteractivityStore` | Interactivity API directives and context |
+| 22 | `LearnDash` | LearnDash completion tracking |
+| 23 | `LifterLMS` | LifterLMS completion tracking |
+| 24 | `FluentCRM` | FluentCRM event tracking |
+
+### Query render_block Priority
+
+Pro block conditions hook `render_block` at priority 12 (after free conditions at priority 9):
+
+```php
+// Free conditions: priority 9
+// Pro conditions: priority 12
+// Your custom logic: priority 15+
+add_filter('render_block', 'my_custom_conditions', 15, 2);
+```
+
+### aegis_pro_fluentcrm_video_event
+
+Fired when a FluentCRM video event is processed. Use for custom integrations:
+
+```php
+add_action('aegis_pro_fluentcrm_video_event', function($contact, $event_type, $data) {
+    // $contact — FluentCRM contact object
+    // $event_type — 'play', 'milestone', or 'complete'
+    // $data — event data array
+}, 10, 3);
+```
+
+### aegis_dark_mode_map
+
+Filter the dark mode shade remapping:
+
+```php
+add_filter('aegis_dark_mode_map', function(array $map): array {
+    $map['primary'][500] = 500; // Keep midpoint stable
+    return $map;
+});
+```
+
+### aegis_pattern_control
+
+Filter which patterns are disabled by the Pattern Control admin:
+
+```php
+add_filter('aegis_pattern_control', function(array $disabled): array {
+    // Force-disable a specific pattern
+    $disabled[] = 'woocommerce/product-grid';
+    return $disabled;
+});
+```
+
 <Tip>
 Always use appropriate priority (third parameter) when multiple functions hook into the same action/filter.
 </Tip>
