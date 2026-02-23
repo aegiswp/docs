@@ -103,7 +103,8 @@
               "features/responsive",
               "features/performance",
               "features/accessibility",
-              "features/wordpress-resources-optimization"
+              "features/wordpress-resources-optimization",
+              "features/query-loop-pro"
             ]
           },
           {

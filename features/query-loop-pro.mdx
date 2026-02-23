@@ -1,0 +1,306 @@
+---
+title: "Query Loop Pro"
+description: "Advanced layouts, filtering, conditions, and performance for the Query Loop block"
+---
+
+`User` `Dev` `Pro`
+
+## Overview
+
+Aegis Pro extends the core Query Loop block (`core/query`) with 19 feature classes providing AJAX pagination, carousel and masonry layouts, frontend filters, dynamic image sources, block bindings, conditional visibility, and performance optimizations. All settings appear in the block sidebar when editing a Query Loop block.
+
+## AJAX Pagination
+
+Replace standard page reloads with seamless AJAX-powered pagination.
+
+### Pagination Types
+
+| Type | Description |
+|------|-------------|
+| **Load More** | Button appends the next page of results |
+| **Infinite Scroll** | Automatically loads more as the user scrolls |
+| **AJAX Pages** | Replaces pagination links with AJAX requests |
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProAjaxPagination` | boolean | `false` | Enable AJAX pagination |
+| `aegisProPaginationType` | string | `load_more` | Type: `load_more`, `infinite_scroll`, `ajax_pages` |
+| `aegisProLoadMoreText` | string | `Load More` | Button label |
+| `aegisProLoadingText` | string | `Loading...` | Loading state text |
+| `aegisProNoMoreText` | string | `No more posts` | End-of-results text |
+| `aegisProScrollThreshold` | number | `300` | Infinite scroll trigger distance (px from bottom) |
+| `aegisProLoadAnimation` | string | `fade` | Animation: `fade`, `slide`, `none` |
+
+### REST API
+
+`POST /aegis-pro/v1/query/paginate` — Fetches the next page of query results server-side and returns rendered HTML.
+
+**Class:** `AegisPro\Query\AjaxPagination`
+
+---
+
+## Carousel Layout
+
+Display query results as a responsive slider/carousel.
+
+### Features
+
+- **Responsive slides per view** — Configure desktop, tablet, and mobile independently
+- **Navigation** — Arrows (arrows, chevrons, minimal) positioned on sides, bottom, or outside
+- **Pagination** — Dots, lines, or numbers
+- **Autoplay** — Configurable interval with pause on hover
+- **Effects** — Slide, fade, or coverflow transitions
+- **Advanced** — Loop, centered slides, free mode (momentum scrolling)
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProCarouselEnabled` | boolean | `false` | Enable carousel layout |
+| `aegisProCarouselPerView` | number | `3` | Slides per view (desktop) |
+| `aegisProCarouselPerViewTablet` | number | `2` | Slides per view (tablet) |
+| `aegisProCarouselPerViewMobile` | number | `1` | Slides per view (mobile) |
+| `aegisProCarouselGap` | string | `1.5rem` | Gap between slides |
+| `aegisProCarouselNavigation` | boolean | `true` | Show navigation arrows |
+| `aegisProCarouselNavStyle` | string | `arrows` | Style: `arrows`, `chevrons`, `minimal` |
+| `aegisProCarouselNavPosition` | string | `sides` | Position: `sides`, `bottom`, `outside` |
+| `aegisProCarouselPagination` | boolean | `true` | Show pagination |
+| `aegisProCarouselPaginationStyle` | string | `dots` | Style: `dots`, `lines`, `numbers` |
+| `aegisProCarouselAutoplay` | boolean | `false` | Enable autoplay |
+| `aegisProCarouselAutoplaySpeed` | number | `5000` | Autoplay interval (ms) |
+| `aegisProCarouselPauseOnHover` | boolean | `true` | Pause on hover |
+| `aegisProCarouselLoop` | boolean | `true` | Infinite loop |
+| `aegisProCarouselEffect` | string | `slide` | Effect: `slide`, `fade`, `coverflow` |
+| `aegisProCarouselSpeed` | number | `400` | Transition speed (ms) |
+| `aegisProCarouselCentered` | boolean | `false` | Center active slide |
+| `aegisProCarouselFreeMode` | boolean | `false` | Momentum scrolling |
+
+**Class:** `AegisPro\Query\CarouselLayout`
+
+---
+
+## Masonry Layout
+
+CSS-based and JavaScript-enhanced masonry grid for Query Loop blocks.
+
+### Masonry Types
+
+| Type | Description |
+|------|-------------|
+| **CSS** | Uses CSS `column-count` — lightweight, no JS required |
+| **JS** | True masonry with JavaScript positioning — handles variable heights accurately |
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProMasonryEnabled` | boolean | `false` | Enable masonry layout |
+| `aegisProMasonryType` | string | `css` | Type: `css` or `js` |
+| `aegisProMasonryColumns` | number | `3` | Columns (desktop) |
+| `aegisProMasonryColumnsTablet` | number | `2` | Columns (tablet) |
+| `aegisProMasonryColumnsMobile` | number | `1` | Columns (mobile) |
+| `aegisProMasonryGap` | string | `1.5rem` | Gap between items |
+| `aegisProMasonryAnimation` | string | `fade-up` | Load animation: `none`, `fade`, `fade-up`, `scale` |
+| `aegisProMasonryStagger` | number | `50` | Stagger delay per item (ms) |
+
+**Class:** `AegisPro\Query\MasonryLayout`
+
+---
+
+## Frontend Filters
+
+Visitor-facing filter UI rendered above, below, or beside query results.
+
+### Filter Types
+
+- **Taxonomy filters** — Filter by category, tag, or custom taxonomy
+- **Search** — Live search within query results
+- **Sorting** — Sort by date, title, or custom field
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProFrontendFilters` | boolean | `false` | Enable frontend filters |
+| `aegisProFilterLayout` | string | `horizontal` | Layout: `horizontal`, `vertical`, `dropdown` |
+| `aegisProTaxonomyFilter` | boolean | `false` | Enable taxonomy filter |
+| `aegisProFilterTaxonomies` | array | `[]` | Taxonomies to filter by |
+| `aegisProSearchFilter` | boolean | `false` | Enable search filter |
+| `aegisProSearchPlaceholder` | string | `Search...` | Search input placeholder |
+| `aegisProSortFilter` | boolean | `false` | Enable sort filter |
+| `aegisProSortOptions` | array | `[date_desc, date_asc, title_asc, title_desc]` | Available sort options |
+| `aegisProFilterStyle` | string | `buttons` | Style: `buttons`, `pills`, `select` |
+| `aegisProShowCounts` | boolean | `true` | Show result counts per filter |
+| `aegisProShowReset` | boolean | `true` | Show reset button |
+| `aegisProFilterPosition` | string | `above` | Position: `above`, `below`, `sidebar` |
+
+**Class:** `AegisPro\Query\FrontendFilters`
+
+---
+
+## Image Source
+
+Choose which image to display in `core/post-featured-image` blocks within a Query Loop.
+
+### Source Types
+
+| Source | Description |
+|--------|-------------|
+| **Featured** | Default WordPress featured image |
+| **Content** | Nth image from post content (by index) |
+| **ACF** | Image from an ACF image field |
+| **Meta Box** | Image from a Meta Box field |
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProImageSource` | string | `featured` | Source: `featured`, `content`, `acf`, `metabox` |
+| `aegisProImageIndex` | number | `1` | Content image index (1st, 2nd, etc.) |
+| `aegisProImageFallback` | string | `featured` | Fallback if primary source is empty |
+| `aegisProImageField` | string | `""` | ACF or Meta Box field name |
+
+### REST API
+
+`GET /aegis-pro/v1/query/image-preview` — Returns a preview of the resolved image for the editor.
+
+**Class:** `AegisPro\Query\ImageSource`
+
+---
+
+## Block Bindings
+
+WordPress Block Bindings API integration (requires WP 6.5+) for dynamic data display without custom templates.
+
+### Binding Sources
+
+| Source Name | Description |
+|-------------|-------------|
+| `aegis-pro/query-data` | Bind to post meta and computed values |
+| `aegis-pro/acf-field` | Bind to ACF field values |
+| `aegis-pro/metabox-field` | Bind to Meta Box field values |
+
+### Usage
+
+In the block editor, select a block inside a Query Loop and use the Bindings panel to connect block attributes to dynamic data sources.
+
+```html
+<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"aegis-pro/query-data","args":{"key":"custom_field_name"}}}}} -->
+<p></p>
+<!-- /wp:paragraph -->
+```
+
+**Class:** `AegisPro\Query\BlockBindings`
+
+---
+
+## Block Conditions
+
+Block-level conditional visibility for Pro conditions. Hooks `render_block` at priority 12 (after free Visibility at 10 and Responsive at 11).
+
+### Condition Types
+
+| Condition | Description |
+|-----------|-------------|
+| **Cookie** | Show/hide based on browser cookie values |
+| **Referral source** | Target visitors from specific URLs |
+| **ACF field** | Evaluate ACF field values with comparison operators |
+| **Meta Box field** | Evaluate Meta Box field values |
+| **Post meta** | Check arbitrary post meta |
+| **User meta** | Check current user meta |
+| **Advanced location** | Taxonomy term, CPT archive, and template conditions |
+
+**Class:** `AegisPro\Query\BlockConditions` (extends `BaseConditions`)
+
+---
+
+## Query Performance
+
+Caching and optimization features for Query Loop blocks.
+
+### Features
+
+- **Transient caching** — Cache rendered query results with configurable duration and automatic invalidation on post save
+- **Lazy loading** — Defer image loading with configurable viewport threshold
+- **Image preloading** — Preload the first N images for above-the-fold performance
+- **Query optimization** — Disable `SQL_CALC_FOUND_ROWS` for queries that don't need total counts
+- **Meta query optimization** — Optimize complex meta queries
+- **Skeleton loading** — Show placeholder skeleton UI while content loads
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `aegisProCacheEnabled` | boolean | `false` | Enable transient caching |
+| `aegisProCacheDuration` | number | `3600` | Cache TTL in seconds (default 1 hour) |
+| `aegisProLazyLoadImages` | boolean | `true` | Lazy load images |
+| `aegisProLazyLoadThreshold` | number | `200` | Lazy load trigger distance (px) |
+| `aegisProPreloadCount` | number | `3` | Preload first N images |
+| `aegisProNoFoundRows` | boolean | `false` | Disable `SQL_CALC_FOUND_ROWS` |
+| `aegisProOptimizeMeta` | boolean | `true` | Optimize meta queries |
+| `aegisProSkeletonLoading` | boolean | `false` | Show skeleton placeholders |
+
+**Class:** `AegisPro\Query\QueryPerformance`
+
+---
+
+## Interactivity Store
+
+WordPress Interactivity API integration for reactive query interactions.
+
+- **Namespace:** `aegis-pro/query`
+- Reactive state management for filters, pagination, and layout transitions
+- Client-side hydration of server-rendered query results
+- Shared state between carousel, masonry, filters, and pagination modules
+
+**Class:** `AegisPro\Query\InteractivityStore`
+
+---
+
+## Plugin-Specific Conditions
+
+Conditional query filtering based on active plugins. Each class extends `BaseConditions` and only loads when its target plugin is active.
+
+| Class | Plugin | Conditions |
+|-------|--------|------------|
+| `WooCommerceConditions` | WooCommerce | Product status, price range, stock, categories, on-sale |
+| `WooCommerceIntegration` | WooCommerce | Product grid layouts, cart/checkout awareness |
+| `LearnDashConditions` | LearnDash | Course enrollment, completion status, group membership |
+| `LifterLMSConditions` | LifterLMS | Membership level, course progress, enrollment |
+| `SenseiLMSConditions` | Sensei LMS | Course enrollment, lesson completion |
+| `FluentFormsConditions` | Fluent Forms | Form submission status |
+| `FluentBookingConditions` | Fluent Booking | Booking status |
+| `FieldIntegration` | ACF / Meta Box | Custom field value conditions |
+
+---
+
+## Query Builder
+
+`Dev`
+
+The `QueryBuilder` class provides a programmatic API for constructing complex `WP_Query` arguments used by the other Query Pro modules.
+
+**Class:** `AegisPro\Query\QueryBuilder`
+
+---
+
+## Architecture
+
+All Query Pro classes follow the same pattern:
+
+1. **Attribute registration** — Hook `register_block_type_args` to add custom attributes to `core/query` (or `core/post-featured-image` for ImageSource)
+2. **Render modification** — Hook `render_block_core/query` to wrap or modify the block output
+3. **Conditional loading** — Assets (JS/CSS) are only enqueued when the feature is enabled on the current page
+4. **Interactivity API** — Client-side behavior uses `wp_interactivity_state()` for reactive updates
+
+### Hook Priorities
+
+| Priority | Class | Hook |
+|----------|-------|------|
+| 10 | AjaxPagination | `render_block_core/query` |
+| 11 | FrontendFilters | `render_block_core/query` |
+| 12 | BlockConditions | `render_block` |
+| 13 | CarouselLayout | `render_block_core/query` |
+| 15 | ImageSource | `render_block_core/post-featured-image` |
